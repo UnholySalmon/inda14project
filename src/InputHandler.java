@@ -17,6 +17,4 @@ public class InputHandler {
 		if(input.isKeyDown(Input.KEY_LEFT)) {player.move("left");}
 		if(input.isKeyDown(Input.KEY_RIGHT)) {player.move("right");}
 	}
-	
-
 }
