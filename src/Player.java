@@ -1,29 +1,20 @@
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Input;
+import org.newdawn.slick.Image;
 
-public class Player {
+public class Player extends Entity {
 	
-	private Input input;
-	private AppGameContainer app;
+	private int movementSpeed;
 	
-	public Player(AppGameContainer app) {
-		this.app = app;
-		input = app.getInput();
-	}
-	
-	public void checkInput() {
-		if(input.isKeyPressed(Input.KEY_SPACE)) {jump();}
-		if(input.isKeyDown(Input.KEY_LEFT)) {move("left");}
-		if(input.isKeyDown(Input.KEY_RIGHT)) {move("right");}
-		
+	public Player(int x, int y, int height, int width, Image img) {
+		super(x, y, img);
 		
 	}
 	
-	private void move(String direction) {
+	public void move(String direction) {
 		// TODO
 	}
 	
-	private void jump() {
+	public void jump() {
 		// TODO 
 	}
+
 }
