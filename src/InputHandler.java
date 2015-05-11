@@ -1,15 +1,16 @@
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 
 public class InputHandler {
 	
-	private AppGameContainer app; //May not be needed
 	private Input input;
 	private Player player;
 	
-	public InputHandler(AppGameContainer app, Player player) {
-		this.app = app;
-		input = app.getInput();
+	public InputHandler(Input input) {
+		this.input = input;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	public void checkInput() {

@@ -16,6 +16,15 @@ public class Entity {
 		this(x,y,new Image(path));
 	}
 	
+	public void incrementX(int increment) {
+		x += increment;
+	}
+	
+	public void incrementY(int increment) {
+		y += increment;
+	}
+	
+	
 	public int getX() {
 		return x;
 	}
@@ -26,6 +35,10 @@ public class Entity {
 	
 	public Image getImage() {
 		return img;
+	}
+	
+	public void update() {
+		// TODO
 	}
 	
 	public void draw() {
