@@ -7,6 +7,7 @@ public class Player extends Entity {
 	
 	private Input input;
 	private final int movementSpeed = 5;
+	private int speedY;
 	
 	public Player(int x, int y, Image img, Input input) throws SlickException {
 		super(x,y,img,true);
@@ -31,7 +32,13 @@ public class Player extends Entity {
 		}
 		
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
-			// TODO
+			speedY += 30;
+		}
+		this.increaseY(speedY);
+		if (this.getY()<=0) {
+			speedY = 0;
+		} else {
+			speedY -= 1;
 		}
 	}
 }
