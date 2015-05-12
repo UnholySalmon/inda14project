@@ -7,7 +7,9 @@ import org.newdawn.slick.SlickException;
 public class Map {
 	
 	private Image img;
-	private ArrayList<Entity> entities;
+	private static ArrayList<Entity> entities;
+	private static Image WALLIMAGE;
+	public static Color WALLCOLOR = new Color(0,0,0);
 	
 	public Map(String path) {
 		try {
@@ -18,21 +20,42 @@ public class Map {
 		entities = getEntities(img);
 	}
 	
-	private Color getColorAtPixel(Image img, int x, int y) {
-		return new Color(img.getColor(x,y));
-	}
-	
 	private ArrayList<Entity> getEntities(Image img) {
+		try {
+			WALLIMAGE = new Image("res/wall.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		int w = img.getWidth(),
 			h = img.getHeight();
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
-				Color c = getColorAtPixel(img,x,y);
-				// add entities corresponding to c at x,y
+				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
+					entities.add(new Tile(x,y,WALLIMAGE,true));
+				}
 			}
 		}
 		return entities;
+	}
+	
+	private static boolean compareColor(Color c1, Color c2) {
+		return c1.getRed() == c2.getRed()
+			&& c1.getGreen() == c2.getGreen()
+			&& c1.getBlue() == c2.getBlue();
+	}
+	
+	public void update(int delta) {
+		for (Entity e : entities) {
+			e.update(delta);
+		}
+	}
+	
+	public void render() {
+		for (Entity e : entities) {
+			e.render();
+		}
 	}
 	
 }

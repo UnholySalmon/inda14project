@@ -5,15 +5,25 @@ public class Entity {
 	
 	private int x,y;
 	private Image img;
+	private boolean solid;
 	
-	public Entity(int x, int y, Image img) {
+	public Entity(int x, int y, Image img, boolean solid) {
 		this.x = x;
 		this.y = y;
 		this.img = img;
+		this.solid = solid;
 	}
 	
-	public Entity(int x, int y, String path) throws SlickException {
-		this(x,y,new Image(path));
+	public Entity(int x, int y, String path, boolean solid) throws SlickException {
+		this(x,y,new Image(path), solid);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 	
 	public void incrementX(int increment) {
@@ -24,25 +34,24 @@ public class Entity {
 		y += increment;
 	}
 	
-	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
 	public Image getImage() {
 		return img;
 	}
 	
-	public void update() {
-		// TODO
+	public boolean isSolid() {
+		return solid;
 	}
 	
-	public void draw() {
+	public void update(int delta) {}
+	
+	public void render() {
 		img.draw(x,y);
+	}
+	
+	public boolean isColliding(Entity e) {
+		if (!solid || !e.solid) return false;
+		// handle collision
+		return false;
 	}
 	
 }

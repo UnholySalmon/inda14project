@@ -3,23 +3,16 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends Entity {
 	
-	private static final int MOVEMENTSPEED = 1;
+	public Player(int x, int y, Image img) throws SlickException {
+		super(x,y,img,true);
+	}
 	
 	public Player(int x, int y, String path) throws SlickException {
-		super(x, y, path);
-		
+		super(x,y,path,true);
 	}
 	
-	public void move(String direction) {
-		switch (direction) {
-			case "left": this.incrementX(-MOVEMENTSPEED); 
-			case "right": this.incrementX(MOVEMENTSPEED);
-			default: return;
-		}
+	public void update() {
+		// Handle inputs from InputHandler
 	}
 	
-	public void jump() {
-		// TODO 
-	}
-
 }

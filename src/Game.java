@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -9,36 +7,39 @@ import org.newdawn.slick.SlickException;
 
 public class Game extends BasicGame {
 	
-	private Tile t; // For testing purposes
-	private ArrayList<Entity> entities;
-	//private Player player;
-	private InputHandler input;
+	private static final float RATIO = 16/9f;
+	private static final int HEIGHT = 720, WIDTH = (int) (HEIGHT * RATIO);
 	
-	public Game(String title, Input input) {
+	public static Input input;
+	private static Map map;
+	
+	public Game(String title) {
 		super(title);
-		this.input = new InputHandler(input);
 	}
 	
 	public void init(GameContainer container) throws SlickException {
-		t = new Tile(2,3,"res/test.png");
-		entities = new ArrayList<Entity>();
-		//player = new Player(64, 64, "res/pika.png");
-		//entities.add(player);
-		//input = new InputHandler(,player);
+		map = new Map("res/testmap.png");
 	}
 	
 	public void update(GameContainer container, int delta) throws SlickException {
-		for (Entity entity : entities) {
-			entity.update();
-		}
+		map.update(delta);
 	}
 	
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		t.draw(); // For testing purposes
-		
-		for (Entity entity : entities) {
-			entity.draw();
-		}	
+		map.render();	
 	}
-}	
-
+	
+	public static void main(String[] args) throws SlickException {
+		AppGameContainer app = new AppGameContainer(new Game("I Would Like To Be The Guy"));
+		app.setDisplayMode(WIDTH, HEIGHT, false);
+		app.setTargetFrameRate(300);
+		app.start();
+		
+		input = app.getInput();
+	}
+	
+	public static boolean isKeyPressed(int k) {
+		return input.isKeyPressed(k);
+	}
+	
+}
