@@ -40,7 +40,7 @@ public class Game extends BasicGame {
 	 */
 	public void init(GameContainer container) throws SlickException {
 		Map.init();
-		// World.init();
+		World.init();
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class Game extends BasicGame {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) throws SlickException {
-		// World.update(delta);
+		World.update(delta);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Game extends BasicGame {
 	 * Renders World.
 	 */
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		// World.render();	
+		World.render();	
 	}
 	
 	/**
