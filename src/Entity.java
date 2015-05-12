@@ -51,6 +51,14 @@ public class Entity {
 		return y;
 	}
 	
+	public void increaseX(int increment) {
+		x += increment;
+	}
+	
+	public void increaseY(int increment) {
+		y += increment;
+	}
+	
 	public Image getImage() {
 		return img;
 	}

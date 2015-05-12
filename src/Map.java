@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -11,9 +12,10 @@ import org.newdawn.slick.SlickException;
  */
 public class Map {
 	
+	private Input input;	
 	private Image img;
 	// store all objects in the map
-	private static ArrayList<Entity> entities;
+	private ArrayList<Entity> entities;
 	
 	// these determine which color corresponds to which image
 	private static Color WALLCOLOR;
@@ -25,7 +27,9 @@ public class Map {
 	 * 
 	 * @param path Path to find map image.
 	 */
-	public Map(String path) {
+	public Map(String path, Input input) {
+		
+		this.input = input;
 		try {
 			img = new Image(path);
 		} catch (SlickException e) {
@@ -58,6 +62,13 @@ public class Map {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		int w = img.getWidth(),
 			h = img.getHeight();
+		//for testing
+		try {
+			Player player = new Player(32,32, "res/pika.png", input);
+			entities.add(player);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		
 		// Titerate all pixels in img.
 		for (int y = 0; y < h; y++) {

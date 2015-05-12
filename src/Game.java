@@ -17,13 +17,13 @@ public class Game extends BasicGame {
 	private static final int HEIGHT = 720, WIDTH = (int) (HEIGHT * RATIO);
 	
 	// maximum amount of rendered frames per second
-	private static final int MAXFRAMES = 300;
+	private static final int MAXFRAMES = 60;
 	
 	// title of window
 	private static final String TITLE = "I Would Like To Be The Guy";
 	
 	// input will handle our user inputs
-	public static Input input;
+	public Input input;
 	
 	/**
 	 * Create a new Game.
@@ -39,8 +39,9 @@ public class Game extends BasicGame {
 	 * Here, all resources will be loaded.
 	 */
 	public void init(GameContainer container) throws SlickException {
+		input = container.getInput();
 		Map.init();
-		World.init();
+		World.init(input);
 	}
 	
 	/**
@@ -63,28 +64,35 @@ public class Game extends BasicGame {
 		World.render();	
 	}
 	
+	public void setMOFOInput(Input input) {
+		this.input = input;
+	}
+	
 	/**
 	 * The program runs from here.
 	 * An AppGameContainer is created and obtains a Game object.
 	 * Its title, size and max renders per second are determined by class variables.
 	 */
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer app = new AppGameContainer(new Game(TITLE));
+		Game game = new Game(TITLE);
+		AppGameContainer app = new AppGameContainer(game);
 		app.setDisplayMode(WIDTH,HEIGHT,false);
 		app.setTargetFrameRate(MAXFRAMES);
 		app.start();
 		
-		input = app.getInput();
+//		app.getInput();
+//		System.out.println(app.getInput());
+		//ginput = app.getInput();
 	}
 	
-	/**
-	 * Returns whether a given key is pressed.
-	 * 
-	 * @param k Key
-	 * @return Is k pressed?
-	 */
-	public static boolean isKeyPressed(int k) {
-		return input.isKeyPressed(k);
-	}
+//	/**
+//	 * Returns whether a given key is pressed.
+//	 * 
+//	 * @param k Key
+//	 * @return Is k pressed?
+//	 */
+//	public static boolean isKeyPressed(int k) {
+//		return input.isKeyPressed(k);
+//	}
 	
 }

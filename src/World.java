@@ -1,3 +1,4 @@
+import org.newdawn.slick.Input;
 
 /**
  * The game world loads and stores all maps.
@@ -13,9 +14,10 @@ public class World {
 	/**
 	 * Initialize all maps, and store the first map in currentMap
 	 */
-	public static void init() {
-		map1 = new Map("res/map1.png");
+	public static void init(Input input) {
+		map1 = new Map("res/map1.png", input);
 		currentMap = map1;
+		
 	}
 	
 	/**
@@ -24,6 +26,7 @@ public class World {
 	 * @param delta Has to be passed to the objects.
 	 */
 	public static void update(int delta) {
+		//System.out.println(delta);
 		currentMap.update(delta);
 	}
 	
