@@ -17,7 +17,7 @@ public class Game extends BasicGame {
 	private static final int HEIGHT = 720, WIDTH = (int) (HEIGHT * RATIO);
 	
 	// maximum amount of rendered frames per second
-	private static final int MAXFRAMES = 60;
+	private static final int MAXFRAMES = 300;
 	
 	// title of window
 	private static final String TITLE = "I Would Like To Be The Guy";
@@ -80,19 +80,6 @@ public class Game extends BasicGame {
 		app.setTargetFrameRate(MAXFRAMES);
 		app.start();
 		
-//		app.getInput();
-//		System.out.println(app.getInput());
-		//ginput = app.getInput();
 	}
-	
-//	/**
-//	 * Returns whether a given key is pressed.
-//	 * 
-//	 * @param k Key
-//	 * @return Is k pressed?
-//	 */
-//	public static boolean isKeyPressed(int k) {
-//		return input.isKeyPressed(k);
-//	}
 	
 }

@@ -16,10 +16,14 @@ public class Map {
 	private Image img;
 	// store all objects in the map
 	private ArrayList<Entity> entities;
+	private int mapHeight;
+	private int mapWidth;
+	private Camera camera;
 	
 	// these determine which color corresponds to which image
 	private static Color WALLCOLOR;
 	private static Image WALLIMAGE;
+	private static Image BACKGROUND;
 	// here we would add more tiles to use in maps
 	
 	/**
@@ -35,7 +39,15 @@ public class Map {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		mapHeight = img.getHeight()*Tile.SIZE;
+		mapWidth = img.getWidth()*Tile.SIZE;
 		entities = getEntities(img);
+		
+		for (Entity e : entities) {
+			if (e instanceof Player) {
+				camera = new Camera(0,0,e);
+			}
+		}
 	}
 	
 	/**
@@ -45,10 +57,13 @@ public class Map {
 	public static void init() {
 		WALLCOLOR = new Color(0,0,0);
 		try {
+			BACKGROUND = new Image("res/background.png");
 			WALLIMAGE = new Image("res/wall.png");
+			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	/**
@@ -64,7 +79,7 @@ public class Map {
 			h = img.getHeight();
 		//for testing
 		try {
-			Player player = new Player(32,32, "res/pika.png", input);
+			Player player = new Player(1280,360, "res/pika.png", input);
 			entities.add(player);
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -106,15 +121,20 @@ public class Map {
 		for (Entity e : entities) {
 			e.update(delta);
 		}
+		camera.update();
 	}
 	
 	/**
 	 * Render all entities in the map.
 	 */
 	public void render() {
+		BACKGROUND.draw(-camera.getX(),-camera.getY());
 		for (Entity e : entities) {
-			e.render();
+			if (camera.isEntityOnScreen(e)) {
+				int onScreenX = e.getX() - camera.getX();
+				int onScreenY = e.getY() - camera.getY();
+				e.render(onScreenX, onScreenY);
+			}
 		}
 	}
-	
 }

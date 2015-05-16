@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 public class Entity {
 	
 	private int x,y;
+	private int width, height;
 	private Image img;
 	private int dx,dy;
 	private boolean solid;
@@ -24,6 +25,8 @@ public class Entity {
 		this.x = x;
 		this.y = y;
 		this.img = img;
+		width = img.getWidth();
+		height = img.getHeight();
 		dx = 0;
 		dy = 0;
 		this.solid = solid;
@@ -49,6 +52,14 @@ public class Entity {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	public void increaseX(int increment) {
@@ -85,7 +96,7 @@ public class Entity {
 	/**
 	 * Render image at (x,y).
 	 */
-	public void render() {
+	public void render(int x, int y) {
 		img.draw(x,y);
 	}
 	
