@@ -1,5 +1,6 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * All objects in the game world are represented by Entity.
@@ -12,6 +13,7 @@ public class Entity {
 	private Image img;
 	private int dx,dy;
 	private boolean solid;
+	private Shape boundingBox;
 	
 	/**
 	 * Create a new Entity.
@@ -86,6 +88,10 @@ public class Entity {
 		return solid;
 	}
 	
+	public Shape getBoundingBox(){
+		return this.boundingBox;
+	}
+	
 	/**
 	 * Update this object, taking the time delta into account.
 	 * 
@@ -107,9 +113,21 @@ public class Entity {
 	 * @return Are this and e colliding?
 	 */
 	public boolean isColliding(Entity e) {
-		if (!solid || !e.solid) return false;
+		if (!solid || !e.solid)return false;
+			
 		// handle collision
 		return false;
 	}
+	
+	public boolean intersects(Entity e){
+		if (this.getBoundingBox() == null){
+			return false;
+		}
+		return this.getBoundingBox().intersects(e.getBoundingBox());
+	}
+	
+	
+	
+	
 	
 }
