@@ -26,7 +26,6 @@ public class World {
 	 * @param delta Has to be passed to the objects.
 	 */
 	public static void update(int delta) {
-		//System.out.println(delta);
 		currentMap.update(delta);
 	}
 	

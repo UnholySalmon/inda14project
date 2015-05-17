@@ -1,5 +1,5 @@
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 /**
@@ -9,14 +9,16 @@ import org.newdawn.slick.geom.Shape;
 public class Entity {
 	
 	private int x,y;
-	private int width, height;
+	private int width,height;
 	private Image img;
 	private int dx,dy;
 	private boolean solid;
-	private Shape boundingBox;
+	private Shape hitbox;
+	private int xOffset,yOffset;
 	
 	/**
 	 * Create a new Entity.
+	 * Automatically sets up a rectangular hitbox lining up with img.
 	 * 
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -32,20 +34,16 @@ public class Entity {
 		dx = 0;
 		dy = 0;
 		this.solid = solid;
+		setHitbox(new Rectangle(x,y,img.getWidth(),img.getHeight()),0,0);
 	}
 	
 	/**
-	 * Create a new Entity.
-	 * A shortcut constructor which accepts
-	 * a path to an image rather than an image.
-	 * 
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param path Path to image
-	 * @param solid Can Entity objects pass through this object?
+	 * Set the hitbox.
 	 */
-	public Entity(int x, int y, String path, boolean solid) throws SlickException {
-		this(x,y,new Image(path),solid);
+	public void setHitbox(Shape shape, int xOffset, int yOffset) {
+		hitbox = shape;
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 	
 	public int getX() {
@@ -88,8 +86,8 @@ public class Entity {
 		return solid;
 	}
 	
-	public Shape getBoundingBox(){
-		return this.boundingBox;
+	public Shape getHitbox(){
+		return hitbox;
 	}
 	
 	/**
@@ -114,20 +112,7 @@ public class Entity {
 	 */
 	public boolean isColliding(Entity e) {
 		if (!solid || !e.solid)return false;
-			
-		// handle collision
-		return false;
+		return hitbox.contains(e.hitbox);
 	}
-	
-	public boolean intersects(Entity e){
-		if (this.getBoundingBox() == null){
-			return false;
-		}
-		return this.getBoundingBox().intersects(e.getBoundingBox());
-	}
-	
-	
-	
-	
 	
 }

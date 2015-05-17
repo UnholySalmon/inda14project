@@ -4,7 +4,6 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends Entity {
 	
-	
 	private Input input;
 	private final int movementSpeed = 10;
 	private int speedY;
@@ -27,19 +26,19 @@ public class Player extends Entity {
 	private void handleInput(int delta) {
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			int pixelsMovedInX = (movementSpeed * Tile.SIZE * delta) / 1000; 
-			this.increaseX(-pixelsMovedInX); // Negative value
+			increaseX(-pixelsMovedInX); // Negative value
 		}
 		
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			int pixelsMovedInX = (movementSpeed * Tile.SIZE * delta) / 1000; 
-			this.increaseX(pixelsMovedInX);
+			increaseX(pixelsMovedInX);
 		}
 		
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			speedY += 20;
 		}
-		this.increaseY(speedY);
-		if (this.getY()<=0) {
+		increaseY(speedY);
+		if (getY()<=0) {
 			speedY = 0;
 		} else {
 			speedY -= 1;

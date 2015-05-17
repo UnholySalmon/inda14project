@@ -43,11 +43,9 @@ public class Map {
 		mapWidth = img.getWidth()*Tile.SIZE;
 		entities = getEntities(img);
 		
-		for (Entity e : entities) {
-			if (e instanceof Player) {
+		for (Entity e : entities)
+			if (e instanceof Player)
 				camera = new Camera(0,0,e);
-			}
-		}
 	}
 	
 	/**
@@ -129,12 +127,8 @@ public class Map {
 	 */
 	public void render() {
 		BACKGROUND.draw(-camera.getX(),-camera.getY());
-		for (Entity e : entities) {
-			if (camera.isEntityOnScreen(e)) {
-				int onScreenX = e.getX() - camera.getX();
-				int onScreenY = e.getY() - camera.getY();
-				e.render(onScreenX, onScreenY);
-			}
-		}
+		for (Entity e : entities)
+			if (camera.isEntityOnScreen(e))
+				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
 	}
 }
