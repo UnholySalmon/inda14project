@@ -26,6 +26,8 @@ public class Map {
 	private static Image BACKGROUND;
 	// here we would add more tiles to use in maps
 	
+
+	
 	/**
 	 * Create a new Map.
 	 * 
@@ -119,6 +121,12 @@ public class Map {
 		for (Entity e : entities) {
 			e.update(delta);
 		}
+		for (Entity e : entities){
+			if(e.hitbox.intersects(e.hitbox)){
+				System.out.println("INTERSECT!");
+			}
+		}
+		
 		camera.update();
 	}
 	
@@ -131,4 +139,6 @@ public class Map {
 			if (camera.isEntityOnScreen(e))
 				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
 	}
+	
+	
 }

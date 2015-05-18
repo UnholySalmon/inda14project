@@ -13,8 +13,12 @@ public class Entity {
 	private Image img;
 	private int dx,dy;
 	private boolean solid;
-	private Shape hitbox;
 	private int xOffset,yOffset;
+	public Shape hitbox;
+	
+	
+	
+	
 	
 	/**
 	 * Create a new Entity.
@@ -38,12 +42,20 @@ public class Entity {
 	}
 	
 	/**
-	 * Set the hitbox.
+	 * Set the hitbox used for collision detection. If an entity has an hitbox,
+	 * it is collidable against other entities.
+	 * @param xOffset
+	 *            The offset of the hitbox on the x axis. Relative to the top
+	 *            left point of the entity.
+	 * @param yOffset
+	 *            The offset of the hitbox on the y axis. Relative to the top
+	 *            left point of the entity.
 	 */
 	public void setHitbox(Shape shape, int xOffset, int yOffset) {
 		hitbox = shape;
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
+		this.solid = true;
 	}
 	
 	public int getX() {
@@ -95,7 +107,9 @@ public class Entity {
 	 * 
 	 * @param delta Time
 	 */
-	public void update(int delta) {}
+	public void update(int delta) {
+		
+	}
 	
 	/**
 	 * Render image at (x,y).
@@ -111,7 +125,11 @@ public class Entity {
 	 * @return Are this and e colliding?
 	 */
 	public boolean isColliding(Entity e) {
-		if (!solid || !e.solid)return false;
+		if (!solid || !e.solid){
+			return false;
+		}
+		
+		
 		return hitbox.contains(e.hitbox);
 	}
 	
