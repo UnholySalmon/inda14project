@@ -77,7 +77,7 @@ public class Map {
 			h = img.getHeight();
 		//for testing
 		try {
-			Player player = new Player(1280,360, "res/pika.png", input);
+			Player player = new Player(1280,360, new Image("res/pika.png"), input);
 			entities.add(player);
 		} catch (SlickException e) {
 			e.printStackTrace();

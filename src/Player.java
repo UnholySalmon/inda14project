@@ -13,12 +13,6 @@ public class Player extends Entity {
 		this.input = input;
 	}
 	
-	public Player(int x, int y, String path, Input input) throws SlickException {
-		super(x,y,path,true);
-		this.input = input;
-		
-	}
-	
 	public void update(int delta) {
 		handleInput(delta);
 	}
