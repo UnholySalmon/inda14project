@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -15,8 +17,7 @@ public class Entity {
 	private boolean solid;
 	private int xOffset,yOffset;
 	public Shape hitbox;
-	
-	
+		
 	
 	
 	
@@ -128,8 +129,13 @@ public class Entity {
 		if (!solid || !e.solid){
 			return false;
 		}
-		
-		
+		e.hitbox.setLocation(x - xOffset, y - yOffset);
+		for (Entity entity : Map.getEntities()){
+			if(entity.hitbox.intersects(entity.hitbox)){
+				System.out.println("Intersect!");
+			}
+		}
+
 		return hitbox.contains(e.hitbox);
 	}
 	

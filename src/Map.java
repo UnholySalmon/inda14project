@@ -15,7 +15,7 @@ public class Map {
 	private Input input;	
 	private Image img;
 	// store all objects in the map
-	private ArrayList<Entity> entities;
+	private static ArrayList<Entity> entities;
 	private int mapHeight;
 	private int mapWidth;
 	private Camera camera;
@@ -73,13 +73,13 @@ public class Map {
 	 * @param img Image
 	 * @return A list of entities defined in img.
 	 */
-	private ArrayList<Entity> getEntities(Image img) {
+	ArrayList<Entity> getEntities(Image img) {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		int w = img.getWidth(),
 			h = img.getHeight();
 		//for testing
 		try {
-			Player player = new Player(1280,360, new Image("res/pika.png"), input);
+			Player player = new Player(1280,360, new Image("res/playerproud.png"), input);
 			entities.add(player);
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -120,14 +120,11 @@ public class Map {
 	public void update(int delta) {
 		for (Entity e : entities) {
 			e.update(delta);
-		}
-		for (Entity e : entities){
-			if(e.hitbox.intersects(e.hitbox)){
-				System.out.println("INTERSECT!");
-			}
+			e.isColliding(e);
 		}
 		
 		camera.update();
+		
 	}
 	
 	/**
@@ -139,6 +136,10 @@ public class Map {
 			if (camera.isEntityOnScreen(e))
 				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
 	}
+	
+	public static  ArrayList<Entity> getEntities(){
+		return entities;
+		}
 	
 	
 }
