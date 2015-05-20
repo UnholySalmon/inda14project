@@ -40,7 +40,7 @@ public class Game extends BasicGame {
 	 */
 	public void init(GameContainer container) throws SlickException {
 		input = container.getInput();
-		Map.init();
+		Map.init(container);
 		World.init(input);
 	}
 	
@@ -53,7 +53,7 @@ public class Game extends BasicGame {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) throws SlickException {
-		World.update(delta);
+		World.update(container, delta);
 	}
 	
 	/**

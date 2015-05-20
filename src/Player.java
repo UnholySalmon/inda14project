@@ -12,8 +12,8 @@ public class Player extends Entity {
 	}
 	
 	public void update(GameContainer container, int delta) {
-		System.out.println(this.getX());
-		System.out.println(this.getY());
+//		System.out.println(this.getX());
+//		System.out.println(this.getY());
 		handleInput(container.getInput(), delta);
 	}
 	

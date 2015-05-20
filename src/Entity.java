@@ -124,24 +124,4 @@ public class Entity {
 		img.draw(x,y);
 	}
 	
-	/**
-	 * Return whether this and e are colliding.
-	 * Returns false if either of these are non-solid.
-	 * 
-	 * @return Are this and e colliding?
-	 */
-	public boolean isColliding(Entity e) {
-		if (!solid || !e.solid){
-			return false;
-		}
-		e.hitbox.setLocation(x - xOffset, y - yOffset);
-		for (Entity entity : Map.getEntities()){
-			if(entity.hitbox.intersects(entity.hitbox)){
-				System.out.println("Intersect!");
-			}
-		}
-
-		return hitbox.contains(e.hitbox);
-	}
-	
 }

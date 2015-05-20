@@ -7,7 +7,7 @@ public class Camera {
 	
 	// Current coordinates 
 	private int x, y;
-	private int width, height;
+	private static int width, height;
 	// Maximum allowed coordinates
 	private int maxX, maxY;
 	// Minimum allowed coordinates
@@ -20,12 +20,11 @@ public class Camera {
 		this.x = x;
 		this.y = y;
 		this.player = player;
-		width = 1280;
-		height = 720;
 	}
 	
-	public static void init() {
-		// TODO
+	public static void init(GameContainer container) {
+		width = container.getWidth();
+		height = container.getHeight();
 	}
 	
 	public void update() {

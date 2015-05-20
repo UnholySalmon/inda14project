@@ -122,7 +122,9 @@ public class Map {
 		for (Entity e : entities) {
 
 			e.update(container, delta);
-			e.isColliding(e);
+			if (e instanceof MoveableEntity) {
+				((MoveableEntity)e).isColliding();
+			}
 		}
 		camera.update();
 		
