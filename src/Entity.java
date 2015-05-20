@@ -75,10 +75,12 @@ public class Entity {
 	
 	public void increaseX(float increment) {
 		x += increment;
+		hitbox.setX(x);
 	}
 	
 	public void increaseY(float increment) {
 		y += increment;
+		hitbox.setY(y);
 	}
 	
 	public Image getImage() {
