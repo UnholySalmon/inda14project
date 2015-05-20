@@ -78,14 +78,14 @@ public class Map {
 		int w = img.getWidth(),
 			h = img.getHeight();
 		
-		// Titerate all pixels in img.
+		// iterate all pixels in img.
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				// compare the color of pixel (x,y)
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
-					Player p = new Player(x,y,PLAYERIMAGE);
+					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERIMAGE);
 					p.init();
 					entities.add(p);
 				}
