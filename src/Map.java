@@ -85,7 +85,7 @@ public class Map {
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
-					Player p = new Player(x,y,PLAYERIMAGE);
+					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERIMAGE);
 					p.init();
 					entities.add(p);
 				}

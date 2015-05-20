@@ -44,11 +44,11 @@ public class MoveableEntity extends Entity {
 			} 
 			if(this.hitbox.intersects(entity.hitbox)){
 				
-//				if (this.getXSpeed() >= 0) {
-//					this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
-//				} else { 
-//					this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
-//				}
+				if (this.getXSpeed() >= 0) {
+					this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
+				} else { 
+					this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
+				}
 				if (this.getYSpeed() >= 0) {
 					this.increaseY(entity.hitbox.getMinY()-this.hitbox.getMaxY()); 
 				} else { 
@@ -57,6 +57,6 @@ public class MoveableEntity extends Entity {
 			}
 		}
 
-		hitbox.contains(this.hitbox);
+//		hitbox.contains(this.hitbox);
 	}
 }
