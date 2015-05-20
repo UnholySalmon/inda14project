@@ -15,7 +15,7 @@ public class World {
 	/**
 	 * Initialize all maps, and store the first map in currentMap
 	 */
-	public static void init(Input input) {
+	public static void init() {
 		map1 = new Map("res/map1.png");
 		currentMap = map1;
 		

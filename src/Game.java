@@ -22,8 +22,6 @@ public class Game extends BasicGame {
 	// title of window
 	private static final String TITLE = "I Would Like To Be The Guy";
 	
-	// input will handle our user inputs
-	public Input input;
 	
 	/**
 	 * Create a new Game.
@@ -39,9 +37,8 @@ public class Game extends BasicGame {
 	 * Here, all resources will be loaded.
 	 */
 	public void init(GameContainer container) throws SlickException {
-		input = container.getInput();
 		Map.init(container);
-		World.init(input);
+		World.init();
 	}
 	
 	/**
@@ -62,10 +59,6 @@ public class Game extends BasicGame {
 	 */
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		World.render();	
-	}
-	
-	public void setMOFOInput(Input input) {
-		this.input = input;
 	}
 	
 	/**
