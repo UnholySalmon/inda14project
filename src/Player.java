@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends MoveableEntity {
 	
-	private final int movementSpeed = 10;
+	private final int movementSpeed = 12;
 	private int speedY;
 	
 	public Player(int x, int y, String path) throws SlickException {
