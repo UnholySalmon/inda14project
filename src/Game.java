@@ -23,7 +23,7 @@ public class Game extends BasicGame {
 	private static final String TITLE = "I Would Like To Be The Guy";
 	
 	// input will handle our user inputs
-	public static Input input;
+	public Input input;
 	
 	/**
 	 * Create a new Game.
@@ -39,8 +39,9 @@ public class Game extends BasicGame {
 	 * Here, all resources will be loaded.
 	 */
 	public void init(GameContainer container) throws SlickException {
-		Map.init();
-		World.init();
+		input = container.getInput();
+		Map.init(container);
+		World.init(input);
 	}
 	
 	/**
@@ -52,7 +53,7 @@ public class Game extends BasicGame {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) throws SlickException {
-		World.update(delta);
+		World.update(container, delta);
 	}
 	
 	/**
@@ -63,28 +64,22 @@ public class Game extends BasicGame {
 		World.render();	
 	}
 	
+	public void setMOFOInput(Input input) {
+		this.input = input;
+	}
+	
 	/**
 	 * The program runs from here.
 	 * An AppGameContainer is created and obtains a Game object.
 	 * Its title, size and max renders per second are determined by class variables.
 	 */
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer app = new AppGameContainer(new Game(TITLE));
+		Game game = new Game(TITLE);
+		AppGameContainer app = new AppGameContainer(game);
 		app.setDisplayMode(WIDTH,HEIGHT,false);
 		app.setTargetFrameRate(MAXFRAMES);
 		app.start();
 		
-		input = app.getInput();
-	}
-	
-	/**
-	 * Returns whether a given key is pressed.
-	 * 
-	 * @param k Key
-	 * @return Is k pressed?
-	 */
-	public static boolean isKeyPressed(int k) {
-		return input.isKeyPressed(k);
 	}
 	
 }

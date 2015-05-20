@@ -95,6 +95,10 @@ public class Entity {
 		return hitbox;
 	}
 	
+	public void setImg(Image img) {
+		this.img = img;
+	}
+	
 	/**
 	 * Update this object, taking the time delta into account.
 	 * 
