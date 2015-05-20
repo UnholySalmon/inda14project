@@ -39,11 +39,21 @@ public class MoveableEntity extends Entity {
 	public void checkCollision() {
 		//System.out.println("Collision check");
 		for (Entity entity : Map.getEntities()){
-			if (!entity.isSolid()) {
-				return;
+			if (!entity.isSolid() || entity == this) {
+				continue;
 			} 
 			if(this.hitbox.intersects(entity.hitbox)){
-				//System.out.println("Intersect!");	
+				
+//				if (this.getXSpeed() >= 0) {
+//					this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
+//				} else { 
+//					this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
+//				}
+				if (this.getYSpeed() >= 0) {
+					this.increaseY(entity.hitbox.getMinY()-this.hitbox.getMaxY()); 
+				} else { 
+					this.increaseY(entity.hitbox.getMaxY()-this.hitbox.getMinY());
+				}
 			}
 		}
 

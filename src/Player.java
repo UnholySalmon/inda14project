@@ -52,6 +52,8 @@ public class Player extends MoveableEntity {
 	}
 	
 	public void update(GameContainer container, int delta) {
+		System.out.println(this.getX());
+		System.out.println(this.getY());
 		handleInput(container.getInput(), delta);
 		this.hitbox.setLocation(this.getX(), this.getY());
 		render();
@@ -63,6 +65,14 @@ public class Player extends MoveableEntity {
 		
 		if (idleCounter >= 4_000) {
 			idleAnim.update(delta);
+		}
+		
+		//testing
+		
+		if (input.isKeyDown(Input.KEY_UP)) {
+			this.setYSpeed(-3);
+		} else if (input.isKeyDown(Input.KEY_DOWN)) {
+			this.setYSpeed(3);
 		}
 		
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
