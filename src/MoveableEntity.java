@@ -40,8 +40,10 @@ public class MoveableEntity extends Entity {
 		// move this and e's hitboxes
 		hitbox.setCenterX(hitbox.getCenterX()+xspeed);
 		hitbox.setCenterY(hitbox.getCenterY()+yspeed);
-		e.hitbox.setCenterX(e.hitbox.getCenterX()+xspeed);
-		e.hitbox.setCenterY(e.hitbox.getCenterY()+yspeed);
+		if (e instanceof MoveableEntity) {
+			e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
+			e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
+		}
 		
 		// check for collision here
 		// if xspeed > 0, the collision happened at left side of e,
