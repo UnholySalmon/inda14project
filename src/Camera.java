@@ -2,7 +2,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-
 public class Camera {
 	
 	// Current coordinates 

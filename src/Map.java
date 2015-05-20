@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -23,11 +22,10 @@ public class Map {
 	// these determine which color corresponds to which image
 	private static Color WALLCOLOR;
 	private static Color PLAYERCOLOR;
+	private static Image PLAYERIMAGE;
 	private static Image WALLIMAGE;
 	private static Image BACKGROUND;
 	// here we would add more tiles to use in maps
-	
-
 	
 	/**
 	 * Create a new Map.
@@ -47,7 +45,7 @@ public class Map {
 		
 		for (Entity e : entities)
 			if (e instanceof Player)
-				camera = new Camera(0,0,((Player)e));
+				camera = new Camera(0,0,(Player)e);
 	}
 	
 	/**
@@ -60,7 +58,7 @@ public class Map {
 		try {
 			BACKGROUND = new Image("res/background.png");
 			WALLIMAGE = new Image("res/wall.png");
-			
+			PLAYERIMAGE = new Image("res/playerstand.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -87,11 +85,7 @@ public class Map {
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
-					try {
-						entities.add(new Player(x*Tile.SIZE,y*Tile.SIZE,"res/pika.png"));
-					} catch (SlickException e) {
-						e.printStackTrace();
-					}
+					entities.add(new Player(x,y,PLAYERIMAGE));
 				}
 			}
 		}

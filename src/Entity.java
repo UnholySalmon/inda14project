@@ -43,7 +43,8 @@ public class Entity {
 		this.solid = solid;
 		setHitbox(new Rectangle(x,y,img.getWidth(),img.getHeight()),0,0);
 	}
-		public Entity(int x, int y, String path, boolean solid) throws SlickException {
+	
+	public Entity(int x, int y, String path, boolean solid) throws SlickException {
 		this(x,y,new Image(path), solid);
 	}
 	

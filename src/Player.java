@@ -1,5 +1,6 @@
-import org.newdawn.slick.Input;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player extends MoveableEntity {
@@ -8,7 +9,11 @@ public class Player extends MoveableEntity {
 	private int speedY;
 	
 	public Player(int x, int y, String path) throws SlickException {
-		super(x,y,path,true);
+		this(x,y,new Image(path));
+	}
+	
+	public Player(int x, int y, Image img) {
+		super(x,y,img,true);
 	}
 	
 	public void update(GameContainer container, int delta) {
