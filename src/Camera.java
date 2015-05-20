@@ -14,9 +14,9 @@ public class Camera {
 	private int minX, minY;
 	private final int minDistanceToEdge = 200;
 	
-	public Entity player;
+	public Player player;
 	
-	public Camera(int x, int y, Entity player) {
+	public Camera(int x, int y, Player player) {
 		this.x = x;
 		this.y = y;
 		this.player = player;

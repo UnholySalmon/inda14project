@@ -2,7 +2,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
-public class Player extends Entity {
+public class Player extends MoveableEntity {
 	
 	private final int movementSpeed = 10;
 	private int speedY;
@@ -15,6 +15,7 @@ public class Player extends Entity {
 //		System.out.println(this.getX());
 //		System.out.println(this.getY());
 		handleInput(container.getInput(), delta);
+		this.hitbox.setLocation(this.getX(), this.getY());
 	}
 	
 	private void handleInput(Input input, int delta) {
@@ -28,8 +29,8 @@ public class Player extends Entity {
 			increaseX(pixelsMovedInX);
 		}
 		
-		if (input.isKeyPressed(Input.KEY_SPACE)) {
-			speedY += 20;
+		if (input.isKeyDown(Input.KEY_SPACE)) {
+			speedY += 1;
 		}
 		increaseY(speedY);
 		if (getY()<=0) {

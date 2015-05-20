@@ -47,7 +47,7 @@ public class Map {
 		
 		for (Entity e : entities)
 			if (e instanceof Player)
-				camera = new Camera(0,0,e);
+				camera = new Camera(0,0,((Player)e));
 	}
 	
 	/**
@@ -123,8 +123,8 @@ public class Map {
 
 			e.update(container, delta);
 			if (e instanceof MoveableEntity) {
-				((MoveableEntity)e).isColliding();
-			}
+				((MoveableEntity)e).checkCollision();
+			} 
 		}
 		camera.update();
 		
