@@ -12,16 +12,12 @@ import org.newdawn.slick.SlickException;
  */
 public class Entity {
 	
-	private int x,y;
+	private float x,y;
 	private int width,height;
 	private Image img;
-	private int dx,dy;
 	private boolean solid;
 	private int xOffset,yOffset;
 	public Shape hitbox;
-		
-	
-	
 	
 	/**
 	 * Create a new Entity.
@@ -38,8 +34,6 @@ public class Entity {
 		this.img = img;
 		width = img.getWidth();
 		height = img.getHeight();
-		dx = 0;
-		dy = 0;
 		this.solid = solid;
 		setHitbox(new Rectangle(x,y,img.getWidth(),img.getHeight()),0,0);
 	}
@@ -65,11 +59,11 @@ public class Entity {
 		this.solid = true;
 	}
 	
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 	
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	
@@ -81,24 +75,16 @@ public class Entity {
 		return height;
 	}
 	
-	public void increaseX(int increment) {
+	public void increaseX(float increment) {
 		x += increment;
 	}
 	
-	public void increaseY(int increment) {
+	public void increaseY(float increment) {
 		y += increment;
 	}
 	
 	public Image getImage() {
 		return img;
-	}
-	
-	public int getDX() {
-		return dx;
-	}
-	
-	public int getDY() {
-		return dy;
 	}
 	
 	public boolean isSolid() {
@@ -121,8 +107,8 @@ public class Entity {
 	/**
 	 * Render image at (x,y).
 	 */
-	public void render(int x, int y) {
-		img.draw(x,y);
+	public void render(float x, float y) {
+		img.draw(Math.round(x),Math.round(y));
 	}
 	
 }

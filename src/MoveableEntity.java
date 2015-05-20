@@ -19,13 +19,13 @@ public class MoveableEntity extends Entity {
 	 * @return Are this and e colliding?
 	 */
 	public void checkCollision() {
-		System.out.println("Collision check");
+		//System.out.println("Collision check");
 		for (Entity entity : Map.getEntities()){
 			if (!entity.isSolid()) {
 				return;
 			} 
 			if(this.hitbox.intersects(entity.hitbox)){
-				System.out.println("Intersect!");	
+				//System.out.println("Intersect!");	
 			}
 		}
 

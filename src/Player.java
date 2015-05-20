@@ -5,8 +5,8 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends MoveableEntity {
 	
-	private final int movementSpeed = 10;
-	private int speedY;
+	private final float MOVEMENTSPEED = 10;
+	private final float JUMPSPEED = 10;
 	
 	public Player(int x, int y, String path) throws SlickException {
 		this(x,y,new Image(path));
@@ -17,31 +17,20 @@ public class Player extends MoveableEntity {
 	}
 	
 	public void update(GameContainer container, int delta) {
-//		System.out.println(this.getX());
-//		System.out.println(this.getY());
 		handleInput(container.getInput(), delta);
 		this.hitbox.setLocation(this.getX(), this.getY());
 	}
 	
 	private void handleInput(Input input, int delta) {
-		if (input.isKeyDown(Input.KEY_LEFT)) {
-			int pixelsMovedInX = (movementSpeed * Tile.SIZE * delta) / 1000; 
-			increaseX(-pixelsMovedInX); // Negative value
-		}
+		float xspeed = 0, yspeed = 0;
 		
-		if (input.isKeyDown(Input.KEY_RIGHT)) {
-			int pixelsMovedInX = (movementSpeed * Tile.SIZE * delta) / 1000; 
-			increaseX(pixelsMovedInX);
-		}
+		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
+			xspeed -= (MOVEMENTSPEED * (float) Tile.SIZE * delta) / 1_000;
+		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))
+			xspeed += (MOVEMENTSPEED * (float) Tile.SIZE * delta) / 1_000;
 		
-		if (input.isKeyDown(Input.KEY_SPACE)) {
-			speedY += 1;
-		}
-		increaseY(speedY);
-		if (getY()<=0) {
-			speedY = 0;
-		} else {
-			speedY -= 1;
-		}
+		increaseX(xspeed);
+		increaseY(yspeed);
 	}
+	
 }
