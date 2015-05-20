@@ -1,23 +1,23 @@
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class Player extends Entity {
 	
-	private Input input;
 	private final int movementSpeed = 10;
 	private int speedY;
 	
-	public Player(int x, int y, Image img, Input input) throws SlickException {
-		super(x,y,img,true);
-		this.input = input;
+	public Player(int x, int y, String path) throws SlickException {
+		super(x,y,path,true);
 	}
 	
-	public void update(int delta) {
-		handleInput(delta);
+	public void update(GameContainer container, int delta) {
+		System.out.println(this.getX());
+		System.out.println(this.getY());
+		handleInput(container.getInput(), delta);
 	}
 	
-	private void handleInput(int delta) {
+	private void handleInput(Input input, int delta) {
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			int pixelsMovedInX = (movementSpeed * Tile.SIZE * delta) / 1000; 
 			increaseX(-pixelsMovedInX); // Negative value

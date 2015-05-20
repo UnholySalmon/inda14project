@@ -1,3 +1,4 @@
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
 /**
@@ -15,7 +16,7 @@ public class World {
 	 * Initialize all maps, and store the first map in currentMap
 	 */
 	public static void init(Input input) {
-		map1 = new Map("res/map1.png", input);
+		map1 = new Map("res/map1.png");
 		currentMap = map1;
 		
 	}
@@ -25,8 +26,8 @@ public class World {
 	 * 
 	 * @param delta Has to be passed to the objects.
 	 */
-	public static void update(int delta) {
-		currentMap.update(delta);
+	public static void update(GameContainer container, int delta) {
+		currentMap.update(container, delta);
 	}
 	
 	/**

@@ -13,11 +13,10 @@ import org.newdawn.slick.SlickException;
  */
 public class Map {
 	
-	private static Camera camera;
-	private Input input;	
+	private static Camera camera;	
 	private Image img;
 	// store all objects in the map
-	private ArrayList<Entity> entities;
+	private static ArrayList<Entity> entities;
 	private int mapHeight;
 	private int mapWidth;
 	
@@ -35,9 +34,8 @@ public class Map {
 	 * 
 	 * @param path Path to find map image.
 	 */
-	public Map(String path, Input input) {
+	public Map(String path) {
 		
-		this.input = input;
 		try {
 			img = new Image(path);
 		} catch (SlickException e) {
@@ -77,17 +75,10 @@ public class Map {
 	 * @param img Image
 	 * @return A list of entities defined in img.
 	 */
-	private ArrayList<Entity> getEntities(Image img) {
+	ArrayList<Entity> getEntities(Image img) {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		int w = img.getWidth(),
 			h = img.getHeight();
-		//for testing
-//		try {
-//			Player player = new Player(1280,360, new Image("res/pika.png"), input);
-//			entities.add(player);
-//		} catch (SlickException e) {
-//			e.printStackTrace();
-//		}
 		
 		// Titerate all pixels in img.
 		for (int y = 0; y < h; y++) {
@@ -97,7 +88,6 @@ public class Map {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
 					try {
-
 						entities.add(new Player(x*Tile.SIZE,y*Tile.SIZE,"res/pika.png"));
 					} catch (SlickException e) {
 						e.printStackTrace();
@@ -130,15 +120,12 @@ public class Map {
 	 */
 	public void update(GameContainer container, int delta) {
 		for (Entity e : entities) {
+
 			e.update(container, delta);
+			e.isColliding(e);
 		}
-//		for (Entity e : entities){
-//			if(e.hitbox.intersects(e.hitbox)){
-//				System.out.println("INTERSECT!");
-//			}
-//		}
-		
 		camera.update();
+		
 	}
 	
 	/**
@@ -150,6 +137,10 @@ public class Map {
 			if (camera.isEntityOnScreen(e))
 				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
 	}
+	
+	public static  ArrayList<Entity> getEntities(){
+		return entities;
+		}
 	
 	
 }
