@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -12,16 +13,17 @@ import org.newdawn.slick.SlickException;
  */
 public class Map {
 	
+	private static Camera camera;
 	private Input input;	
 	private Image img;
 	// store all objects in the map
 	private ArrayList<Entity> entities;
 	private int mapHeight;
 	private int mapWidth;
-	private Camera camera;
 	
 	// these determine which color corresponds to which image
 	private static Color WALLCOLOR;
+	private static Color PLAYERCOLOR;
 	private static Image WALLIMAGE;
 	private static Image BACKGROUND;
 	// here we would add more tiles to use in maps
@@ -54,8 +56,9 @@ public class Map {
 	 * Initialize colors and images which correspond with each other.
 	 * Call this method before creating maps.
 	 */
-	public static void init() {
+	public static void init(GameContainer container) {
 		WALLCOLOR = new Color(0,0,0);
+		PLAYERCOLOR = new Color(255,0,0);
 		try {
 			BACKGROUND = new Image("res/background.png");
 			WALLIMAGE = new Image("res/wall.png");
@@ -63,6 +66,7 @@ public class Map {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		Camera.init(container);
 		
 	}
 	
@@ -78,12 +82,12 @@ public class Map {
 		int w = img.getWidth(),
 			h = img.getHeight();
 		//for testing
-		try {
-			Player player = new Player(1280,360, new Image("res/pika.png"), input);
-			entities.add(player);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Player player = new Player(1280,360, new Image("res/pika.png"), input);
+//			entities.add(player);
+//		} catch (SlickException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Titerate all pixels in img.
 		for (int y = 0; y < h; y++) {
@@ -91,6 +95,13 @@ public class Map {
 				// compare the color of pixel (x,y)
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
+				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
+					try {
+
+						entities.add(new Player(x*Tile.SIZE,y*Tile.SIZE,"res/pika.png"));
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -117,15 +128,15 @@ public class Map {
 	 * 
 	 * @param delta Has to be passed to the objects.
 	 */
-	public void update(int delta) {
+	public void update(GameContainer container, int delta) {
 		for (Entity e : entities) {
-			e.update(delta);
+			e.update(container, delta);
 		}
-		for (Entity e : entities){
-			if(e.hitbox.intersects(e.hitbox)){
-				System.out.println("INTERSECT!");
-			}
-		}
+//		for (Entity e : entities){
+//			if(e.hitbox.intersects(e.hitbox)){
+//				System.out.println("INTERSECT!");
+//			}
+//		}
 		
 		camera.update();
 	}
