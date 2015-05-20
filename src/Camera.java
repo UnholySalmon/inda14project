@@ -44,11 +44,11 @@ public class Camera {
 		}
 	}
 	
-	public void increaseX(int increment) {
+	public void increaseX(float increment) {
 		x += increment;
 	}
 	
-	public void increaseY(int increment) {
+	public void increaseY(float increment) {
 		y += increment;
 	}
 	
