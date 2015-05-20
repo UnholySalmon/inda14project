@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-
-import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.SlickException;
 
 /**
  * All objects in the game world are represented by Entity.
@@ -16,8 +14,8 @@ public class Entity {
 	private int width,height;
 	private Image img;
 	private boolean solid;
-	private int xOffset,yOffset;
 	public Shape hitbox;
+	private int xOffset, yOffset;
 	
 	/**
 	 * Create a new Entity.

@@ -1,16 +1,10 @@
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 public class Camera {
 	
 	// Current coordinates 
 	private int x, y;
 	private static int width, height;
-	// Maximum allowed coordinates
-	private int maxX, maxY;
-	// Minimum allowed coordinates
-	private int minX, minY;
 	private final int minDistanceToEdge = 200;
 	
 	public Player player;

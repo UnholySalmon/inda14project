@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 
 /**
  * The game world loads and stores all maps.
@@ -36,10 +33,6 @@ public class World {
 	 */
 	public static void render() {
 		currentMap.render();
-	}
-	
-	public static ArrayList<Entity> getEntities() {
-		return currentMap.getEntities();
 	}
 	
 }

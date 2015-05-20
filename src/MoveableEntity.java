@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -37,53 +39,44 @@ public class MoveableEntity extends Entity {
 	 * @returns Are this and e colliding?
 	 */
 	public boolean isColliding(Entity e) {
-		// move this and e's hitboxes
-		hitbox.setCenterX(hitbox.getCenterX()+xspeed);
-		hitbox.setCenterY(hitbox.getCenterY()+yspeed);
-		if (e instanceof MoveableEntity) {
-			e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
-			e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
+		return isCollidingX(e) || isCollidingY(e);
+	}
+	
+	private boolean isCollidingX(Entity e) {
+		//hitbox.setCenterX(hitbox.getCenterX()+xspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
+		
+		if (hitbox.contains(e.hitbox)) {
+			if (xspeed > 0) increaseX(hitbox.getMaxX()-e.hitbox.getMinX());
+			else increaseX(hitbox.getMinX()-e.hitbox.getMaxX());
+			xspeed = 0;
+			return true;
 		}
-		
-		// check for collision here
-		// if xspeed > 0, the collision happened at left side of e,
-		// so this has to be placed beside e
-		
-		// if yspeed > 0, the collision happened at upper side of e,
-		// so this has to be placed on top of e
-		
-		//return if any collision happened
 		return false;
 	}
 	
-	/**
-	 * Return whether this and e are colliding.
-	 * Returns false if either of these are non-solid.
-	 * 
-	 * @return Are this and e colliding?
-	 */
-	public void checkCollision() {
-		//System.out.println("Collision check");
-		for (Entity entity : Map.getEntities()){
-			if (!entity.isSolid() || entity == this) {
-				continue;
-			} 
-			if(this.hitbox.intersects(entity.hitbox)){
-				
-				//if (this.getXSpeed() >= 0) {
-				//	this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
-				//} else { 
-				//	this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
-				//}
-
-				if (this.getYSpeed() >= 0) {
-					this.increaseY(entity.hitbox.getMinY()-this.hitbox.getMaxY()); 
-				} else { 
-					this.increaseY(entity.hitbox.getMaxY()-this.hitbox.getMinY());
-				}
-			}
+	private boolean isCollidingY(Entity e) {
+		//hitbox.setCenterY(hitbox.getCenterY()+yspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
+		
+		if (hitbox.contains(e.hitbox)) {
+			if (yspeed > 0) increaseY(hitbox.getMaxY()-e.hitbox.getMinY());
+			else increaseY(hitbox.getMinY()-e.hitbox.getMaxY());
+			yspeed = 0;
+			return true;
 		}
-
-//		hitbox.contains(this.hitbox);
+		return false;
+	}
+	
+	public ArrayList<Entity> checkCollision() {
+		ArrayList<Entity> entities = Map.getEntities();
+		ArrayList<Entity> collidingEntities = new ArrayList<Entity>();
+		for (Entity e : entities)
+			if (isColliding(e))
+				collidingEntities.add(e);
+		//System.out.println(collidingEntities.size());
+		return collidingEntities;
 	}
 }

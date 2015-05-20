@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -54,10 +52,11 @@ public class Player extends MoveableEntity {
 	}
 	
 	public void update(GameContainer container, int delta) {
-		System.out.println(this.getX());
-		System.out.println(this.getY());
 		handleInput(container.getInput(), delta);
 		this.hitbox.setLocation(this.getX(), this.getY());
+		
+		checkCollision();
+		
 		render();
 	}
 	
@@ -74,7 +73,7 @@ public class Player extends MoveableEntity {
 			this.setYSpeed(-3);
 		} else if (input.isKeyDown(Input.KEY_DOWN)) {
 			this.setYSpeed(3);
-		}
+		} else setYSpeed(0);
 		
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			goingLeft = true;
@@ -90,13 +89,6 @@ public class Player extends MoveableEntity {
 		
 		if (this.getXSpeed() != 0 || this.getYSpeed() != 0)
 			idleCounter = 0;
-		
-		ArrayList<Entity> entities = World.getEntities();
-		
-		for (Entity e : entities) {
-			if (isColliding(e))
-				System.out.println("Ouch!");
-		}
 		
 		//if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
 		

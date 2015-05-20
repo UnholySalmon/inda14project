@@ -57,7 +57,7 @@ public class Map {
 		PLAYERCOLOR = new Color(255,0,0);
 		try {
 			BACKGROUND = new Image("res/background.png");
-			WALLIMAGE = new Image("res/wall.png");
+			WALLIMAGE = new Image("res/bricks.png");
 			PLAYERIMAGE = new Image("res/playerstand.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class Map {
 	 * @param img Image
 	 * @return A list of entities defined in img.
 	 */
-	ArrayList<Entity> getEntities(Image img) {
+	public static ArrayList<Entity> getEntities(Image img) {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		int w = img.getWidth(),
 			h = img.getHeight();
@@ -138,7 +138,6 @@ public class Map {
 	
 	public static  ArrayList<Entity> getEntities(){
 		return entities;
-		}
-	
+	}
 	
 }
