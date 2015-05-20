@@ -30,6 +30,31 @@ public class MoveableEntity extends Entity {
 	}
 	
 	/**
+	 * Returns whether two entities are about to collide.
+	 * They move this accordingly.
+	 * 
+	 * @param e Other entity to check
+	 * @returns Are this and e colliding?
+	 */
+	public boolean isColliding(Entity e) {
+		// move this and e's hitboxes
+		hitbox.setCenterX(hitbox.getCenterX()+xspeed);
+		hitbox.setCenterY(hitbox.getCenterY()+yspeed);
+		e.hitbox.setCenterX(e.hitbox.getCenterX()+xspeed);
+		e.hitbox.setCenterY(e.hitbox.getCenterY()+yspeed);
+		
+		// check for collision here
+		// if xspeed > 0, the collision happened at left side of e,
+		// so this has to be placed beside e
+		
+		// if yspeed > 0, the collision happened at upper side of e,
+		// so this has to be placed on top of e
+		
+		//return if any collision happened
+		return false;
+	}
+	
+	/**
 	 * Return whether this and e are colliding.
 	 * Returns false if either of these are non-solid.
 	 * 

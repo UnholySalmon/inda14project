@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
@@ -18,7 +20,6 @@ public class World {
 	public static void init() {
 		map1 = new Map("res/map1.png");
 		currentMap = map1;
-		
 	}
 	
 	/**
@@ -35,6 +36,10 @@ public class World {
 	 */
 	public static void render() {
 		currentMap.render();
+	}
+	
+	public static ArrayList<Entity> getEntities() {
+		return currentMap.getEntities();
 	}
 	
 }

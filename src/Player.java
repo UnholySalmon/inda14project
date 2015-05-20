@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -67,8 +69,7 @@ public class Player extends MoveableEntity {
 			idleAnim.update(delta);
 		}
 		
-		//testing
-		
+		// for testing purposes
 		if (input.isKeyDown(Input.KEY_UP)) {
 			this.setYSpeed(-3);
 		} else if (input.isKeyDown(Input.KEY_DOWN)) {
@@ -89,6 +90,13 @@ public class Player extends MoveableEntity {
 		
 		if (this.getXSpeed() != 0 || this.getYSpeed() != 0)
 			idleCounter = 0;
+		
+		ArrayList<Entity> entities = World.getEntities();
+		
+		for (Entity e : entities) {
+			if (isColliding(e))
+				System.out.println("Ouch!");
+		}
 		
 		//if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
 		
