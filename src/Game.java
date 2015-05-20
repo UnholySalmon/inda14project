@@ -1,5 +1,7 @@
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -22,6 +24,7 @@ public class Game extends BasicGame {
 	// title of window
 	private static final String TITLE = "I Would Like To Be The Guy";
 	
+	private boolean paused = false;
 	
 	/**
 	 * Create a new Game.
@@ -50,6 +53,11 @@ public class Game extends BasicGame {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) throws SlickException {
+		if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) System.exit(0);
+		if (container.getInput().isKeyPressed(Input.KEY_P))
+			paused = !paused;
+		if (paused)
+			return;
 		World.update(container, delta);
 	}
 	
@@ -58,7 +66,20 @@ public class Game extends BasicGame {
 	 * Renders World.
 	 */
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		World.render();	
+		World.render();
+		if (paused) {
+			
+			int screenCenterX = container.getWidth()/2,
+				screenCenterY = container.getHeight()/2;
+			int boxWidth = 400, boxHeight = 200;
+			
+			g.setColor(new Color(170,190,120));
+			g.fillRect(screenCenterX - boxWidth/2, screenCenterY - boxHeight/2, boxWidth, boxHeight);
+			
+			String pausetext = "Paused";
+			g.setColor(new Color(50,130,190));
+			g.drawString(pausetext,screenCenterX,screenCenterY);
+		}
 	}
 	
 	/**
