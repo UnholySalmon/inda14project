@@ -10,8 +10,6 @@ public class Player extends MoveableEntity {
 	private final float MOVEMENTSPEED = 5;
 	private final float JUMPSPEED = 1;
 	
-	private float xspeed = 0, yspeed = 0;
-	
 	private Animation walkingAnim;
 	private Animation idleAnim;
 	private Image standingImg;
@@ -69,23 +67,23 @@ public class Player extends MoveableEntity {
 		
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			goingLeft = true;
-			xspeed = -(float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000;
+			this.setXSpeed(-(float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
 			walkingAnim.update(delta);
 		} else if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			goingLeft = false;
-			xspeed = (float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000;
+			this.setXSpeed((float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
 			walkingAnim.update(delta);
 		} else {
-			xspeed = 0;
+			this.setXSpeed(0);
 		}
 		
-		if (xspeed != 0 || yspeed != 0)
+		if (this.getXSpeed() != 0 || this.getYSpeed() != 0)
 			idleCounter = 0;
 		
 		//if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
 		
-		increaseX(xspeed);
-		increaseY(yspeed);
+		increaseX(this.getXSpeed());
+		increaseY(this.getYSpeed());
 	}
 	
 	public void render() {
@@ -94,7 +92,7 @@ public class Player extends MoveableEntity {
 		
 		if (idleCounter >= 5_000)
 			newImg = idleAnim.getCurrentFrame();
-		else if (xspeed == 0)
+		else if (this.getXSpeed() == 0)
 			newImg = standingImg;
 		else
 			newImg = walkingAnim.getCurrentFrame();
