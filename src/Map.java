@@ -15,7 +15,7 @@ public class Map {
 	private static Camera camera;	
 	private Image img;
 	// store all objects in the map
-	private static ArrayList<Entity> entities;
+	private static Tile[][] entities;
 	private int mapHeight;
 	private int mapWidth;
 	
@@ -39,13 +39,19 @@ public class Map {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		mapHeight = img.getHeight()*Tile.SIZE;
-		mapWidth = img.getWidth()*Tile.SIZE;
+		mapHeight = img.getHeight()*TileEntity.SIZE;
+		mapWidth = img.getWidth()*TileEntity.SIZE;
 		entities = getEntities(img);
 		
-		for (Entity e : entities)
-			if (e instanceof Player)
-				camera = new Camera(0,0,(Player)e);
+		for (Tile[] t : entities) {
+			for (Tile tile : t) {
+				for (Entity e : tile.getEntities()) {
+					if (e == null) continue;
+					if (e instanceof Player)
+					camera = new Camera(0,0,(Player)e);
+					}
+				}
+			}
 	}
 	
 	/**
@@ -73,21 +79,24 @@ public class Map {
 	 * @param img Image
 	 * @return A list of entities defined in img.
 	 */
-	public static ArrayList<Entity> getEntities(Image img) {
-		ArrayList<Entity> entities = new ArrayList<Entity>();
+	public static Tile[][] getEntities(Image img) {
 		int w = img.getWidth(),
 			h = img.getHeight();
+		
+		Tile[][] entities = new Tile[w][h];
 		
 		// iterate all pixels in img.
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
+				entities[x][y] = new Tile();
 				// compare the color of pixel (x,y)
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
-					entities.add(new Tile(x,y,WALLIMAGE,true));
+					entities[x][y].getEntities().add(new TileEntity(x,y,WALLIMAGE,true));
+					//entities.add(new TileEntity(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
-					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERIMAGE);
+					Player p = new Player(x*TileEntity.SIZE,y*TileEntity.SIZE,PLAYERIMAGE);
 					p.init();
-					entities.add(p);
+					entities[x][y].getEntities().add(p);
 				}
 			}
 		}
@@ -115,12 +124,15 @@ public class Map {
 	 * @param delta Has to be passed to the objects.
 	 */
 	public void update(GameContainer container, int delta) {
-		for (Entity e : entities) {
-
-			e.update(container, delta);
-			if (e instanceof MoveableEntity) {
-				((MoveableEntity)e).checkCollision();
-			} 
+		for (Tile[] t : entities) {
+			for (Tile tile : t) {
+				for (Entity e : tile.getEntities()) {
+					e.update(container, delta);
+					if (e instanceof MoveableEntity) {
+						((MoveableEntity)e).checkCollision();
+					}
+				}
+			}
 		}
 		camera.update();
 		
@@ -131,12 +143,17 @@ public class Map {
 	 */
 	public void render() {
 		BACKGROUND.draw(-camera.getX(),-camera.getY());
-		for (Entity e : entities)
-			if (camera.isEntityOnScreen(e))
-				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
+		for (Tile[] t : entities) {
+			for (Tile tile : t) {
+				for (Entity e : tile.getEntities()) {
+					if (camera.isEntityOnScreen(e))
+						e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
+				}
+			}
+		}
 	}
 	
-	public static  ArrayList<Entity> getEntities(){
+	public static  Tile[][] getEntities(){
 		return entities;
 	}
 	

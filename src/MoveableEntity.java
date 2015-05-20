@@ -79,11 +79,18 @@ public class MoveableEntity extends Entity {
 	}
 	
 	public ArrayList<Entity> checkCollision() {
-		ArrayList<Entity> entities = Map.getEntities();
+		Tile[][] entities = Map.getEntities();
 		ArrayList<Entity> collidingEntities = new ArrayList<Entity>();
-		for (Entity e : entities)
-			if (isColliding(e))
-				collidingEntities.add(e);
+		
+		for (Tile[] t : entities) {
+			for (Tile tile : t) {
+				for (Entity e : tile.getEntities()) {
+					if (isColliding(e))
+						collidingEntities.add(e);
+				}
+			}
+		}
+		
 		return collidingEntities;
 	}
 }
