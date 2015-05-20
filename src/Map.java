@@ -78,7 +78,7 @@ public class Map {
 		int w = img.getWidth(),
 			h = img.getHeight();
 		
-		// Titerate all pixels in img.
+		// iterate all pixels in img.
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				// compare the color of pixel (x,y)

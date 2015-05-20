@@ -1,7 +1,6 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-
 public class MoveableEntity extends Entity {
 	
 	private float xspeed = 0, yspeed = 0;
@@ -44,11 +43,12 @@ public class MoveableEntity extends Entity {
 			} 
 			if(this.hitbox.intersects(entity.hitbox)){
 				
-				if (this.getXSpeed() >= 0) {
-					this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
-				} else { 
-					this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
-				}
+				//if (this.getXSpeed() >= 0) {
+				//	this.increaseX(entity.hitbox.getMinX()-this.hitbox.getMaxX()); 
+				//} else { 
+				//	this.increaseX(entity.hitbox.getMaxX()-this.hitbox.getMinX());
+				//}
+
 				if (this.getYSpeed() >= 0) {
 					this.increaseY(entity.hitbox.getMinY()-this.hitbox.getMaxY()); 
 				} else { 
