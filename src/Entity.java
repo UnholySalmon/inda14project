@@ -11,7 +11,7 @@ public class Entity {
 	private float x,y;
 	private int width,height;
 	private Image img;
-	private boolean solid;
+	private boolean solid, deadly;
 	
 	/**
 	 * Create a new Entity.
@@ -20,14 +20,16 @@ public class Entity {
 	 * @param y Y coordinate
 	 * @param img Image
 	 * @param solid Can Entity objects pass through this object?
+	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public Entity(int x, int y, Image img, boolean solid) {
+	public Entity(int x, int y, Image img, boolean solid, boolean deadly) {
 		this.x = x;
 		this.y = y;
 		this.img = img;
 		width = img.getWidth();
 		height = img.getHeight();
 		this.solid = solid;
+		this.deadly = deadly;
 	}
 	
 	/**
@@ -39,9 +41,10 @@ public class Entity {
 	 * @param y Y coordinate
 	 * @param path Path to image
 	 * @param solid Can Entity objects pass through this object?
+	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public Entity(int x, int y, String path, boolean solid) throws SlickException {
-		this(x,y,new Image(path), solid);
+	public Entity(int x, int y, String path, boolean solid, boolean deadly) throws SlickException {
+		this(x,y,new Image(path),solid,deadly);
 	}
 	
 	public float getX() {
@@ -86,6 +89,10 @@ public class Entity {
 	
 	public boolean isSolid() {
 		return solid;
+	}
+	
+	public boolean isDeadly() {
+		return deadly;
 	}
 	
 	/**

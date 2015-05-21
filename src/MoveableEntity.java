@@ -20,9 +20,10 @@ public class MoveableEntity extends Entity {
 	 * @param y Y coordinate
 	 * @param img Image
 	 * @param solid Can Entity objects pass through this object?
+	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public MoveableEntity(int x, int y, Image img, boolean solid) {
-		super(x,y,img,solid);
+	public MoveableEntity(int x, int y, Image img, boolean solid, boolean deadly) {
+		super(x,y,img,solid,deadly);
 	}
 	
 	/**
@@ -34,9 +35,10 @@ public class MoveableEntity extends Entity {
 	 * @param y Y coordinate
 	 * @param path Path to image
 	 * @param solid Can Entity objects pass through this object?
+	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public MoveableEntity(int x, int y, String path, boolean solid) throws SlickException {
-		this(x,y,new Image(path),solid);
+	public MoveableEntity(int x, int y, String path, boolean solid, boolean deadly) throws SlickException {
+		this(x,y,new Image(path),solid,deadly);
 	}
 	
 	public float getXSpeed() {

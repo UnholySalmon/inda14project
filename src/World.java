@@ -35,4 +35,11 @@ public class World {
 		currentMap.render();
 	}
 	
+	/**
+	 * Re-initialize the current map.
+	 */
+	public static void restart() {
+		init();
+	}
+	
 }

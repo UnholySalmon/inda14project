@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -30,7 +32,7 @@ public class Player extends MoveableEntity {
 	 * @param img Image
 	 */
 	public Player(int x, int y, Image img) {
-		super(x,y,img,true);
+		super(x,y,img,true,false);
 	}
 	
 	/**
@@ -106,7 +108,19 @@ public class Player extends MoveableEntity {
 		// these three lines implement gravity acceleration and collision checking
 		setJumping(true);
 		setYSpeed(getYSpeed()+GRAVITY);
-		checkCollision();
+		ArrayList<Entity> collidingEntities = checkCollision();
+		
+		for (Entity e : collidingEntities) {
+			if (e.isDeadly()) {
+				die();
+			}
+			
+			/*if (e instanceof Platform) {
+				if (!((Platform)e).isVertical()) {
+					setXSpeed(getXSpeed()+((Platform)e).getXSpeed());
+				}
+			}*/
+		}
 		
 		if (!isJumping()) {
 			if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE)) {
@@ -165,6 +179,13 @@ public class Player extends MoveableEntity {
 		// this last commented line draws the actual image, the hitbox
 		// it is for debug purposes only
 		// getImage().draw(Math.round(x),Math.round(y));
+	}
+	
+	/**
+	 * Kills the player and restarts the map
+	 */
+	public void die() {
+		World.restart();
 	}
 	
 }

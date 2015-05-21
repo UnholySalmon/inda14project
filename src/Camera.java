@@ -16,7 +16,7 @@ public class Camera {
 		this.player = player;
 	}
 	
-	/*
+	/**
 	 *  Initializes camera dimensions to match game window's.
 	 */
 	public static void init(GameContainer container) {
@@ -51,21 +51,10 @@ public class Camera {
 			
 	}
 	
-	/*
-	 * Increases X by increment
-	 * 
-	 * @param increment Increment
-	 */
-	
 	public void increaseX(float increment) {
 		x += increment;
 	}
 	
-	/*
-	 * Increases Y by increment
-	 * 
-	 * @param increment Increment
-	 */
 	public void increaseY(float increment) {
 		y += increment;
 	}
@@ -78,8 +67,8 @@ public class Camera {
 		return y;
 	}
 	
-	/*
-	 * Checks i e is on screen
+	/**
+	 * Checks if e is on screen
 	 * 
 	 * @param e Checked entity object
 	 */

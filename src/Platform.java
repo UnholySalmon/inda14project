@@ -6,8 +6,6 @@ import org.newdawn.slick.SlickException;
 public class Platform extends MoveableEntity {
 	
 	private static final int MOVEMENTSPEED = 3;
-	private float currentX;
-	private float currentY;
 	
 	private float origX;
 	private float origY;
@@ -15,8 +13,8 @@ public class Platform extends MoveableEntity {
 	private boolean vertical;
 	private boolean returning;
 	
-	public Platform(int x, int y, String path, boolean vertical, int numTiles, int speed) throws SlickException {
-		super(x,y,path,true);
+	public Platform(int x, int y, Image img, boolean vertical, int numTiles) {
+		super(x,y,img,true,false);
 		origX = x;
 		origY = y;
 		distance = numTiles*Tile.SIZE;
@@ -24,25 +22,13 @@ public class Platform extends MoveableEntity {
 		returning = false;
 		if (vertical) {
 			this.setYSpeed(MOVEMENTSPEED);
-
 		} else {
 			this.setXSpeed(MOVEMENTSPEED);
 		}
 	}
 	
-	public Platform(int x, int y, Image img, boolean vertical, int numTiles) {
-		super(x,y,img,true);
-		origX = x;
-		origY = y;
-		distance = numTiles*Tile.SIZE;
-		this.vertical = vertical;
-		returning = false;
-		if (vertical) {
-			this.setYSpeed(MOVEMENTSPEED);
-
-		} else {
-			this.setXSpeed(MOVEMENTSPEED);
-		}
+	public Platform(int x, int y, String path, boolean vertical, int numTiles) throws SlickException {
+		this(x,y,new Image(path),vertical,numTiles);
 	}
 	
 	public void update(GameContainer container, int delta) {
@@ -82,12 +68,8 @@ public class Platform extends MoveableEntity {
 		}
 	}
 	
-	public void increseX(float increment) {
-		currentX += increment;
-	}
-	
-	public void increseY(float increment) {
-		currentY += increment;
+	public boolean isVertical() {
+		return vertical;
 	}
 	
 	public void testMethod() {

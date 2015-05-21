@@ -16,18 +16,12 @@ public class Map {
 	private Image img;
 	// store all objects in the map
 	private static ArrayList<Entity> entities;
-	private int mapHeight;
-	private int mapWidth;
 	
 	// these determine which color corresponds to which image
-	private static Image EMPTYIMAGE;
-	private static Color WALLCOLOR;
-	private static Color PLAYERCOLOR;
-	private static Color PLATFORMCOLOR;
-	private static Image PLATFORMIMAGE;
-	private static Image PLAYERHITBOXIMAGE;
-	private static Image WALLIMAGE;
-	private static Image BACKGROUND;
+	private static Color WALLCOLOR, PLAYERCOLOR, PLATFORMCOLOR,
+		SPIKESCOLOR;
+	private static Image EMPTYIMAGE, PLAYERHITBOXIMAGE, WALLIMAGE,
+		PLATFORMIMAGE, BACKGROUND, SPIKESIMAGE;
 	// here we would add more tiles to use in maps
 	
 	/**
@@ -42,8 +36,6 @@ public class Map {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		mapHeight = img.getHeight()*Tile.SIZE;
-		mapWidth = img.getWidth()*Tile.SIZE;
 		entities = getEntities(img);
 		
 		for (Entity e : entities)
@@ -56,15 +48,17 @@ public class Map {
 	 * Call this method before creating maps.
 	 */
 	public static void init(GameContainer container) {
-		WALLCOLOR = new Color(0,0,0);
 		PLAYERCOLOR = new Color(255,0,0);
+		WALLCOLOR = new Color(0,0,0);
 		PLATFORMCOLOR = new Color(0,255,0);
+		SPIKESCOLOR = new Color(128,128,128);
 		try {
 			EMPTYIMAGE = new Image("res/empty.png");
-			BACKGROUND = new Image("res/background.png");
-			WALLIMAGE = new Image("res/bricks.png");
 			PLAYERHITBOXIMAGE = new Image("res/playerhitbox.png");
+			WALLIMAGE = new Image("res/bricks.png");
 			PLATFORMIMAGE = new Image("res/platform.png");
+			BACKGROUND = new Image("res/background.png");
+			SPIKESIMAGE = new Image("res/spikes.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -87,16 +81,28 @@ public class Map {
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				// compare the color of pixel (x,y) and create corresponding object
-				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
-					entities.add(new Tile(x,y,WALLIMAGE,true));
-				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
+				Color pixel = img.getColor(x,y);
+				
+				if (compareColor(pixel,WALLCOLOR)) {
+					
+					entities.add(new Tile(x,y,WALLIMAGE,true,false));
+					
+				} else if (compareColor(pixel,PLAYERCOLOR)) {
+					
 					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERHITBOXIMAGE);
 					p.init();
 					entities.add(p);
-				} else if (compareColor(img.getColor(x,y),PLATFORMCOLOR)) {
-					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,true,5));
+					
+				} else if (compareColor(pixel,PLATFORMCOLOR)) {
+					
+					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,false,5));
+					
+				} else if (compareColor(pixel,SPIKESCOLOR)) {
+					
+					entities.add(new Tile(x,y,SPIKESIMAGE,true,true));
 					
 				}
+				
 			}
 		}
 		return entities;
@@ -147,6 +153,11 @@ public class Map {
 		p.render(p.getX() - camera.getX(), p.getY() - camera.getY());
 	}
 	
+	/**
+	 * Return a list of entities in the current map.
+	 * 
+	 * @return The list
+	 */
 	public static ArrayList<Entity> getEntities(){
 		return entities;
 	}
