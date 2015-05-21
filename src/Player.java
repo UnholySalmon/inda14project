@@ -77,11 +77,11 @@ public class Player extends MoveableEntity {
 		
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			goingLeft = true;
-			this.setXSpeed(-(float) (MOVEMENTSPEED * TileEntity.SIZE * delta) / 1_000);
+			this.setXSpeed(-(float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
 			walkingAnim.update(delta);
 		} else if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			goingLeft = false;
-			this.setXSpeed((float) (MOVEMENTSPEED * TileEntity.SIZE * delta) / 1_000);
+			this.setXSpeed((float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
 			walkingAnim.update(delta);
 		} else {
 			this.setXSpeed(0);
