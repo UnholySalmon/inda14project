@@ -40,7 +40,7 @@ public class Player extends MoveableEntity {
 	 * 
 	 * @param x X-coordinate
 	 * @param y Y-coordinate
-	 * @param img Image
+	 * @param path Path to image
 	 */
 	public Player(int x, int y, String path) throws SlickException {
 		this(x,y,new Image(path));
