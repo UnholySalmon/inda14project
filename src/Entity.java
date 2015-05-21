@@ -1,7 +1,6 @@
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 /**
  * All objects in the game world are represented by Entity.
@@ -71,16 +70,12 @@ public class Entity {
 		return img;
 	}
 	
-	public boolean isSolid() {
-		return solid;
-	}
-	
-	public Rectangle getHitbox(){
-		return new Rectangle(x,y,width,height);
-	}
-	
 	public void setImg(Image img) {
 		this.img = img;
+	}
+	
+	public boolean isSolid() {
+		return solid;
 	}
 	
 	/**
@@ -89,7 +84,6 @@ public class Entity {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) {
-		
 	}
 	
 	/**

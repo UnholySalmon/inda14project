@@ -65,7 +65,6 @@ public class Map {
 			e.printStackTrace();
 		}
 		Camera.init(container);
-		
 	}
 	
 	/**
@@ -127,12 +126,19 @@ public class Map {
 	 */
 	public void render() {
 		BACKGROUND.draw(-camera.getX(),-camera.getY());
-		for (Entity e : entities)
-			if (camera.isEntityOnScreen(e))
+		Player p = null;
+		for (Entity e : entities) {
+			if (e instanceof Player) {
+				p = (Player)e;
+			}
+			if (camera.isEntityOnScreen(e)) {
 				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
+			}
+		}
+		p.render(p.getX() - camera.getX(), p.getY() - camera.getY());
 	}
 	
-	public static  ArrayList<Entity> getEntities(){
+	public static ArrayList<Entity> getEntities(){
 		return entities;
 	}
 	

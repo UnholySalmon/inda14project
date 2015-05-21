@@ -52,7 +52,9 @@ public class Game extends BasicGame {
 	 * @param delta Time
 	 */
 	public void update(GameContainer container, int delta) throws SlickException {
+		// exit the game when the user presses Escape
 		if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) System.exit(0);
+		// pause the game when the user presses P
 		if (container.getInput().isKeyPressed(Input.KEY_P))
 			paused = !paused;
 		if (paused)
@@ -68,13 +70,17 @@ public class Game extends BasicGame {
 		World.render();
 		if (paused) {
 			
+			// these variables are used to draw a box in the middle of the screen
 			int screenCenterX = container.getWidth()/2,
 				screenCenterY = container.getHeight()/2;
 			int boxWidth = 400, boxHeight = 200;
+			int cornerRadius = 20;
 			
+			// draw pause box
 			g.setColor(Color.white);
-			g.fillRoundRect(screenCenterX - boxWidth/2, screenCenterY - boxHeight/2, boxWidth, boxHeight, 10);
+			g.fillRoundRect(screenCenterX - boxWidth/2, screenCenterY - boxHeight/2, boxWidth, boxHeight, cornerRadius);
 			
+			// draw pause text
 			String pausetext = "Paused";
 			g.setColor(Color.black);
 			g.drawString(pausetext,screenCenterX-27,screenCenterY-5);
@@ -92,7 +98,6 @@ public class Game extends BasicGame {
 		app.setDisplayMode(WIDTH,HEIGHT,false);
 		app.setTargetFrameRate(MAXFRAMES);
 		app.start();
-		
 	}
 	
 }
