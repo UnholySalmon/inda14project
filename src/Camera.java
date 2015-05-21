@@ -5,7 +5,8 @@ public class Camera {
 	// Current coordinates 
 	private int x, y;
 	private static int width, height;
-	private final int minDistanceToEdge = 200;
+	private final int minDistanceToEdgeY = 200;
+	private final int minDistanceToEdgeX = 400;
 	
 	public Player player;
 	
@@ -21,17 +22,17 @@ public class Camera {
 	}
 	
 	public void update() {
-		if (player.getX() < this.x + minDistanceToEdge) {
-			increaseX(player.getX() - (x + minDistanceToEdge));
+		if (player.getX() < this.x + minDistanceToEdgeX) {
+			increaseX(player.getX() - (x + minDistanceToEdgeX));
 		} else { 
-			if (player.getX() + player.getWidth() > x + width - minDistanceToEdge) {
-				increaseX(player.getX() + player.getWidth() - (x + width - minDistanceToEdge));
+			if (player.getX() + player.getWidth() > x + width - minDistanceToEdgeX) {
+				increaseX(player.getX() + player.getWidth() - (x + width - minDistanceToEdgeX));
 			}
-		if (player.getY() < this.y + minDistanceToEdge) {
-			increaseY(player.getY() - (y + minDistanceToEdge));
+		if (player.getY() < this.y + minDistanceToEdgeY) {
+			increaseY(player.getY() - (y + minDistanceToEdgeY));
 		} else { 
-			if (player.getY() + player.getHeight() > y + height - minDistanceToEdge) {
-				increaseY(player.getY() + player.getHeight() - (y + height - minDistanceToEdge));
+			if (player.getY() + player.getHeight() > y + height - minDistanceToEdgeY) {
+				increaseY(player.getY() + player.getHeight() - (y + height - minDistanceToEdgeY));
 			}
 		}
 			
