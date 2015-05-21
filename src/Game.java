@@ -72,11 +72,11 @@ public class Game extends BasicGame {
 				screenCenterY = container.getHeight()/2;
 			int boxWidth = 400, boxHeight = 200;
 			
-			g.setColor(new Color(170,170,140));
+			g.setColor(Color.white);
 			g.fillRoundRect(screenCenterX - boxWidth/2, screenCenterY - boxHeight/2, boxWidth, boxHeight, 10);
 			
 			String pausetext = "Paused";
-			g.setColor(new Color(30,110,170));
+			g.setColor(Color.black);
 			g.drawString(pausetext,screenCenterX-27,screenCenterY-5);
 		}
 	}

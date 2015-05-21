@@ -20,9 +20,10 @@ public class Map {
 	private int mapWidth;
 	
 	// these determine which color corresponds to which image
+	private static Image EMPTYIMAGE;
 	private static Color WALLCOLOR;
 	private static Color PLAYERCOLOR;
-	private static Image PLAYERIMAGE;
+	private static Image PLAYERHITBOXIMAGE;
 	private static Image WALLIMAGE;
 	private static Image BACKGROUND;
 	// here we would add more tiles to use in maps
@@ -56,9 +57,10 @@ public class Map {
 		WALLCOLOR = new Color(0,0,0);
 		PLAYERCOLOR = new Color(255,0,0);
 		try {
+			EMPTYIMAGE = new Image("res/empty.png");
 			BACKGROUND = new Image("res/background.png");
 			WALLIMAGE = new Image("res/bricks.png");
-			PLAYERIMAGE = new Image("res/playerstand.png");
+			PLAYERHITBOXIMAGE = new Image("res/playerhitbox.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -85,7 +87,7 @@ public class Map {
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
-					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERIMAGE);
+					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERHITBOXIMAGE);
 					p.init();
 					entities.add(p);
 				}

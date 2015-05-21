@@ -54,7 +54,6 @@ public class Player extends MoveableEntity {
 	
 	public void update(GameContainer container, int delta) {
 		handleInput(container.getInput(), delta);
-		render();
 	}
 	
 	private void handleInput(Input input, int delta) {
@@ -93,21 +92,22 @@ public class Player extends MoveableEntity {
 		increaseY(this.getYSpeed());
 	}
 	
-	public void render() {
+	public void render(float x, float y) {
 		
 		Image newImg;
 		
-		if (idleCounter >= 5_000)
+		if (idleCounter >= 5_000) {
 			newImg = idleAnim.getCurrentFrame();
-		else if (this.getXSpeed() == 0)
+		} else if (this.getXSpeed() == 0) {
 			newImg = standingImg;
-		else
+		} else {
 			newImg = walkingAnim.getCurrentFrame();
+		}
 		
-		if (goingLeft)
-			setImg(newImg);
-		else
-			setImg(newImg.getFlippedCopy(true,false));
+		newImg = newImg.getFlippedCopy(!goingLeft,false);
+		
+		newImg.draw(Math.round(x-newImg.getWidth()/2+16),Math.round(y-newImg.getHeight()/2-14));
+		getImage().draw(Math.round(x),Math.round(y));
 	}
 	
 }
