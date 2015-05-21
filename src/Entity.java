@@ -30,6 +30,16 @@ public class Entity {
 		this.solid = solid;
 	}
 	
+	/**
+	 * Create a new Entity.
+	 * A shortcut constructor which accepts
+	 * a path to an image rather than an image.
+	 * 
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param path Path to image
+	 * @param solid Can Entity objects pass through this object?
+	 */
 	public Entity(int x, int y, String path, boolean solid) throws SlickException {
 		this(x,y,new Image(path), solid);
 	}

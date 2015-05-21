@@ -15,7 +15,7 @@ public class Player extends MoveableEntity {
 	private final float MOVEMENTSPEED = 7.5f,
 		JUMPSPEED = 3, GRAVITY = 1/50f;
 	
-	private Image standingImg;
+	private Image standingImg, jumpingImg, fallingImg;
 	private Animation walkingAnim, idleAnim;
 	private boolean goingLeft = false;
 	private int idleCounter;
@@ -40,7 +40,7 @@ public class Player extends MoveableEntity {
 	 * 
 	 * @param x X-coordinate
 	 * @param y Y-coordinate
-	 * @param img Image
+	 * @param path Path to image
 	 */
 	public Player(int x, int y, String path) throws SlickException {
 		this(x,y,new Image(path));
@@ -55,6 +55,8 @@ public class Player extends MoveableEntity {
 		
 		try {
 			standingImg = new Image("res/playerstand.png");
+			jumpingImg = new Image("res/playerjump.png");
+			fallingImg = new Image("res/playerfall.png");
 			ss = new SpriteSheet(new Image("res/playerrun.png"),64,64);
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -141,6 +143,10 @@ public class Player extends MoveableEntity {
 		// the if statements initialized newImg with the proper frame to show
 		if (idleCounter >= 5_000) {
 			newImg = idleAnim.getCurrentFrame();
+		} else if (isJumping() && getYSpeed() <= 0) {
+			newImg = jumpingImg;
+		} else if (isJumping() && getYSpeed() > 0) {
+			newImg = fallingImg;
 		} else if (this.getXSpeed() == 0) {
 			newImg = standingImg;
 		} else {
