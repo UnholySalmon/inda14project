@@ -38,9 +38,11 @@ public class Map {
 		}
 		entities = getEntities(img);
 		
-		for (Entity e : entities)
-			if (e instanceof Player)
+		for (Entity e : entities) {
+			if (e instanceof Player) {
 				camera = new Camera(0,0,(Player)e);
+			}
+		}
 	}
 	
 	/**

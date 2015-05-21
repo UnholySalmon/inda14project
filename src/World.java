@@ -14,12 +14,13 @@ public class World {
 	private static Map map1;
 	// we would have to declare Map objects here to make more levels
 	
-	private static boolean paused = true, gameover = false;
+	private static boolean paused = true, gameover;
 	
 	/**
 	 * Initialize all maps, and store the first map in currentMap
 	 */
 	public static void init() {
+		gameover = false;
 		map1 = new Map("res/map1.png");
 		currentMap = map1;
 	}
@@ -32,9 +33,9 @@ public class World {
 	 */
 	public static void update(GameContainer container, int delta) {
 		// if the game's over, let the user restart by pressing R
-		if (gameover && container.getInput().isKeyPressed(Input.KEY_R)) {
+		if (gameover && container.getInput().isKeyDown(Input.KEY_R)) {
 			restart();
-		}
+		} 
 		if (gameover) return;
 		// pause the game when the user presses P
 		if (container.getInput().isKeyPressed(Input.KEY_P)) {
@@ -94,7 +95,6 @@ public class World {
 	 * Re-initialize the current map and restore game over state.
 	 */
 	public static void restart() {
-		gameover = false;
 		init();
 	}
 	
