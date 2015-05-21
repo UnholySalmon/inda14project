@@ -88,6 +88,8 @@ public class Player extends MoveableEntity {
 		
 		//if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
 		
+		checkCollision();
+		
 		increaseX(this.getXSpeed());
 		increaseY(this.getYSpeed());
 	}

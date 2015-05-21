@@ -115,15 +115,9 @@ public class Map {
 	 * @param delta Has to be passed to the objects.
 	 */
 	public void update(GameContainer container, int delta) {
-		for (Entity e : entities) {
-
+		for (Entity e : entities)
 			e.update(container, delta);
-			if (e instanceof MoveableEntity) {
-				((MoveableEntity)e).checkCollision();
-			} 
-		}
 		camera.update();
-		
 	}
 	
 	/**
