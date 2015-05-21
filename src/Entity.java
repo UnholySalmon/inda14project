@@ -65,6 +65,14 @@ public class Entity {
 		return y;
 	}
 	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
+	}
+	
 	public int getWidth() {
 		return width;
 	}
@@ -75,10 +83,12 @@ public class Entity {
 	
 	public void increaseX(float increment) {
 		x += increment;
+		hitbox.setX(x);
 	}
 	
 	public void increaseY(float increment) {
 		y += increment;
+		hitbox.setY(y);
 	}
 	
 	public Image getImage() {
