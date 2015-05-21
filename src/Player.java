@@ -14,8 +14,8 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Player extends MoveableEntity {
 	
-	private final float MOVEMENTSPEED = 7.5f,
-		JUMPSPEED = 3, GRAVITY = 1/30f;
+	private final float MOVEMENTSPEED = 15f,
+		JUMPSPEED = 11, GRAVITY = 1/8f;
 	
 	private Image standingImg, jumpingImg, fallingImg;
 	private Animation walkingAnim, idleAnim;
@@ -115,11 +115,11 @@ public class Player extends MoveableEntity {
 				die();
 			}
 			
-			/*if (e instanceof Platform) {
+			if (e instanceof Platform) {
 				if (!((Platform)e).isVertical()) {
-					setXSpeed(getXSpeed()+((Platform)e).getXSpeed());
+					setXSpeed(((Platform)e).getXSpeed()+getXSpeed());
 				}
-			}*/
+			}
 		}
 		
 		if (!isJumping()) {
@@ -127,9 +127,9 @@ public class Player extends MoveableEntity {
 				setYSpeed(-JUMPSPEED);
 			}
 		}
-		
-		increaseX(getXSpeed());
-		increaseY(getYSpeed());
+		increaseX((float) (getXSpeed() * Tile.SIZE * delta) / 1_000);
+		//increaseX(getXSpeed());
+		increaseY((float) (getYSpeed() * Tile.SIZE * delta) / 1_000);
 		
 		// the rest of the method body tracks whether
 		// to play the idle animation
