@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class MoveableEntity extends Entity {
 	
 	private float xspeed = 0, yspeed = 0;
+	private boolean colliding = false;
 	
 	public MoveableEntity(int x, int y, String path, boolean solid) throws SlickException {
 		super(x,y,path,solid);
@@ -41,40 +42,42 @@ public class MoveableEntity extends Entity {
 	 */
 	public boolean isColliding(Entity e) {
 		if (e == this) return false;
-		return isCollidingX(e) || isCollidingY(e);
+		boolean collisionX = isCollidingX(e),
+			collisionY = isCollidingY(e);
+		return collisionX || collisionY;
 	}
 	
 	private boolean isCollidingX(Entity e) {
-		hitbox.setCenterX(hitbox.getCenterX()+xspeed);
-		if (e instanceof MoveableEntity)
-			e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
+		//hitbox.setCenterX(hitbox.getCenterX()+xspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
 		
 		if (hitbox.intersects(e.hitbox)) {
-			if (xspeed > 0) setX(e.hitbox.getMinX()-getWidth());
-			else setX(e.hitbox.getMaxX());
+			if (xspeed > 0) setX(e.hitbox.getMinX()-getWidth()-1);
+			else if (xspeed < 0) setX(e.hitbox.getMaxX()+1);
 			return true;
 		}
 		
-		hitbox.setCenterX(hitbox.getCenterX()-xspeed);
-		if (e instanceof MoveableEntity)
-			e.hitbox.setCenterX(e.hitbox.getCenterX()-((MoveableEntity)e).xspeed);
+		//hitbox.setCenterX(hitbox.getCenterX()-xspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterX(e.hitbox.getCenterX()-((MoveableEntity)e).xspeed);
 		return false;
 	}
 	
 	private boolean isCollidingY(Entity e) {
-		hitbox.setCenterY(hitbox.getCenterY()+yspeed);
-		if (e instanceof MoveableEntity)
-			e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
+		//hitbox.setCenterY(hitbox.getCenterY()+yspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
 		
 		if (hitbox.intersects(e.hitbox)) {
 			if (yspeed > 0) setY(e.hitbox.getMinY()-getHeight());
-			else setY(e.hitbox.getMaxY());
+			else if (yspeed < 0) setY(e.hitbox.getMaxY());
 			return true;
 		}
 		
-		hitbox.setCenterY(hitbox.getCenterY()-yspeed);
-		if (e instanceof MoveableEntity)
-			e.hitbox.setCenterY(e.hitbox.getCenterY()-((MoveableEntity)e).yspeed);
+		//hitbox.setCenterY(hitbox.getCenterY()-yspeed);
+		//if (e instanceof MoveableEntity)
+		//	e.hitbox.setCenterY(e.hitbox.getCenterY()-((MoveableEntity)e).yspeed);
 		return false;
 	}
 	
@@ -82,8 +85,11 @@ public class MoveableEntity extends Entity {
 		ArrayList<Entity> entities = Map.getEntities();
 		ArrayList<Entity> collidingEntities = new ArrayList<Entity>();
 		for (Entity e : entities)
-			if (isColliding(e))
+			if (isColliding(e)) {
 				collidingEntities.add(e);
+				colliding = true;
+			}
 		return collidingEntities;
 	}
+	
 }

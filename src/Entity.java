@@ -67,10 +67,12 @@ public class Entity {
 	
 	public void setX(float x) {
 		this.x = x;
+		hitbox.setX(x);
 	}
 	
 	public void setY(float y) {
 		this.y = y;
+		hitbox.setY(y);
 	}
 	
 	public int getWidth() {
