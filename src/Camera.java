@@ -16,11 +16,22 @@ public class Camera {
 		this.player = player;
 	}
 	
+	/*
+	 *  Initializes camera dimensions to match game window's.
+	 */
 	public static void init(GameContainer container) {
 		width = container.getWidth();
 		height = container.getHeight();
 	}
 	
+	/**
+	 * Updates this object's state.
+	 * Checks if player has gone outside set up bounds and adjusts
+	 * position accordingly.
+	 * 
+	 * @param container Obtain input from this
+	 * @param delta Time
+	 */
 	public void update() {
 		if (player.getX() < this.x + minDistanceToEdgeX) {
 			increaseX(player.getX() - (x + minDistanceToEdgeX));
@@ -40,11 +51,21 @@ public class Camera {
 			
 	}
 	
+	/*
+	 * Increases X by increment
+	 * 
+	 * @param increment Increment
+	 */
 	
 	public void increaseX(float increment) {
 		x += increment;
 	}
 	
+	/*
+	 * Increases Y by increment
+	 * 
+	 * @param increment Increment
+	 */
 	public void increaseY(float increment) {
 		y += increment;
 	}
@@ -57,6 +78,11 @@ public class Camera {
 		return y;
 	}
 	
+	/*
+	 * Checks i e is on screen
+	 * 
+	 * @param e Checked entity object
+	 */
 	public boolean isEntityOnScreen(Entity e) {
 		return 	(e.getX() < x + width && e.getX() + e.getWidth() > x) ||
 				(e.getY() < y + height && e.getY() + e.getHeight() > y);

@@ -100,7 +100,7 @@ public class MoveableEntity extends Entity {
 				xspeed = 0;
 				return true;
 			} else
-			// if we collided from the left
+			// if we collided from the right
 			if (xspeed < 0) {
 				setX(e.getX()+e.getWidth());
 				xspeed = 0;
@@ -110,7 +110,7 @@ public class MoveableEntity extends Entity {
 		} else
 		// check if this and e are colliding vertically
 		if (isCollidingY(e,yspeed) && isCollidingX(e,0)) {
-			
+						
 			// if we collided from above
 			if (yspeed > 0) {
 				setY(e.getY()-getHeight());

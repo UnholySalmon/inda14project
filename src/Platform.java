@@ -1,3 +1,4 @@
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -5,9 +6,9 @@ import org.newdawn.slick.SlickException;
 public class Platform extends MoveableEntity {
 	
 	private static final int MOVEMENTSPEED = 3;
-	
 	private float currentX;
 	private float currentY;
+	
 	private float origX;
 	private float origY;
 	private int distance;
@@ -16,56 +17,66 @@ public class Platform extends MoveableEntity {
 	
 	public Platform(int x, int y, String path, boolean vertical, int numTiles, int speed) throws SlickException {
 		super(x,y,path,true);
-		currentX = x;
-		currentY = y;
 		origX = x;
 		origY = y;
 		distance = numTiles*Tile.SIZE;
 		this.vertical = vertical;
 		returning = false;
+		if (vertical) {
+			this.setYSpeed(MOVEMENTSPEED);
+
+		} else {
+			this.setXSpeed(MOVEMENTSPEED);
+		}
 	}
 	
 	public Platform(int x, int y, Image img, boolean vertical, int numTiles) {
 		super(x,y,img,true);
-		currentX = x;
-		currentY = y;
 		origX = x;
 		origY = y;
 		distance = numTiles*Tile.SIZE;
 		this.vertical = vertical;
 		returning = false;
+		if (vertical) {
+			this.setYSpeed(MOVEMENTSPEED);
+
+		} else {
+			this.setXSpeed(MOVEMENTSPEED);
+		}
 	}
 	
-	public void update(int delta) {
+	public void update(GameContainer container, int delta) {
+		// If platform moves vertically
 		if (vertical) {
-			if (returning) {
-			increaseY((float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
-			} else {
-				increaseY((float) -(MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
-			}
-			if (currentY < origY) {
-				currentY = origY;
+			increaseY((float) (getYSpeed() * Tile.SIZE * delta) / 1_000);
+			// Check if reached upper bound and adjust position accordingly
+			if (returning && this.getY() < origY) {
+				setY(origY);
 				returning = !returning;
+				setYSpeed(-getYSpeed());
 			} else {
-				if (origY + distance < currentY ) {
-					currentY = origY + distance;
+				// Check if reached lower bound and adjust position accordingly
+				if (origY + distance < this.getY()) {
+					setY(origY + distance);
 					returning = !returning;
+					setYSpeed(-getYSpeed());
 				}
 			}
-	
+			
+		// If platform moves horizontally
 		} else {
-			if (returning) {
-				increaseX((float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
-				} else {
-					increaseX((float) -(MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
-				}
-				if (currentX < origX) {
-					currentX = origX;
+				increaseX((float) (getXSpeed() * Tile.SIZE * delta) / 1_000);
+				// Check if reached upper bound and adjust position accordingly
+				if (returning && this.getX() < origX) {
+					setX(origX);
 					returning = !returning;
+					setXSpeed(-getXSpeed());
 				} else {
-					if (origX + distance < currentX ) {
-						currentX = origX + distance;
+					// Check if reached lower bound and adjust position accordingly
+					if (origX + distance < this.getX()) {
+						setX(origX + distance);
 						returning = !returning;
+						setXSpeed(-getXSpeed());
 					}
 				}
 		}
@@ -77,6 +88,10 @@ public class Platform extends MoveableEntity {
 	
 	public void increseY(float increment) {
 		currentY += increment;
+	}
+	
+	public void testMethod() {
+		
 	}
 	
 }

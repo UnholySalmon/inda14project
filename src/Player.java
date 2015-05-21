@@ -13,7 +13,7 @@ import org.newdawn.slick.SpriteSheet;
 public class Player extends MoveableEntity {
 	
 	private final float MOVEMENTSPEED = 7.5f,
-		JUMPSPEED = 3, GRAVITY = 1/50f;
+		JUMPSPEED = 3, GRAVITY = 1/30f;
 	
 	private Image standingImg, jumpingImg, fallingImg;
 	private Animation walkingAnim, idleAnim;

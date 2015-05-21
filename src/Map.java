@@ -23,6 +23,8 @@ public class Map {
 	private static Image EMPTYIMAGE;
 	private static Color WALLCOLOR;
 	private static Color PLAYERCOLOR;
+	private static Color PLATFORMCOLOR;
+	private static Image PLATFORMIMAGE;
 	private static Image PLAYERHITBOXIMAGE;
 	private static Image WALLIMAGE;
 	private static Image BACKGROUND;
@@ -56,11 +58,13 @@ public class Map {
 	public static void init(GameContainer container) {
 		WALLCOLOR = new Color(0,0,0);
 		PLAYERCOLOR = new Color(255,0,0);
+		PLATFORMCOLOR = new Color(0,255,0);
 		try {
 			EMPTYIMAGE = new Image("res/empty.png");
 			BACKGROUND = new Image("res/background.png");
 			WALLIMAGE = new Image("res/bricks.png");
 			PLAYERHITBOXIMAGE = new Image("res/playerhitbox.png");
+			PLATFORMIMAGE = new Image("res/platform.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -82,13 +86,16 @@ public class Map {
 		// iterate all pixels in img.
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
-				// compare the color of pixel (x,y)
+				// compare the color of pixel (x,y) and create corresponding object
 				if (compareColor(img.getColor(x,y),WALLCOLOR)) {
 					entities.add(new Tile(x,y,WALLIMAGE,true));
 				} else if (compareColor(img.getColor(x,y),PLAYERCOLOR)) {
 					Player p = new Player(x*Tile.SIZE,y*Tile.SIZE,PLAYERHITBOXIMAGE);
 					p.init();
 					entities.add(p);
+				} else if (compareColor(img.getColor(x,y),PLATFORMCOLOR)) {
+					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,true,5));
+					
 				}
 			}
 		}
@@ -131,10 +138,12 @@ public class Map {
 			if (e instanceof Player) {
 				p = (Player)e;
 			}
+			// Renders entity if currently on screen
 			if (camera.isEntityOnScreen(e)) {
 				e.render(e.getX() - camera.getX(), e.getY() - camera.getY());
 			}
 		}
+		// render player last to keep player in front
 		p.render(p.getX() - camera.getX(), p.getY() - camera.getY());
 	}
 	
