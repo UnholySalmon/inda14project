@@ -2,6 +2,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Moving platform player can stand on in level
+ *
+ */
 public class Platform extends MoveableEntity {
 	
 	private static final int MOVEMENTSPEED = 3;
@@ -12,6 +16,14 @@ public class Platform extends MoveableEntity {
 	private boolean vertical;
 	private boolean returning;
 	
+	/**
+	 * Create a new platform object
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param img Image used to represent platform on screen
+	 * @param vertical Set to true if platform shall move vertically
+	 * @param numTiles Number of tiles platform moves
+	 */
 	public Platform(int x, int y, Image img, boolean vertical, int numTiles) {
 		super(x,y,img,true,false);
 		origX = x;
@@ -25,11 +37,25 @@ public class Platform extends MoveableEntity {
 			this.setXSpeed(MOVEMENTSPEED);
 		}
 	}
-	
+	/**
+	 * Create a new platform object. Alternate constructor using path to 
+	 * create a new Iamge object.
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param path Path to create image used to represent platform on screen
+	 * @param vertical Set to true if platform shall move vertically
+	 * @param numTiles Number of tiles platform moves
+	 */
 	public Platform(int x, int y, String path, boolean vertical, int numTiles) throws SlickException {
 		this(x,y,new Image(path),vertical,numTiles);
 	}
 	
+	/**
+	 * Update state of platform object
+	 * 
+	 * @param container Unused but needed to override update from super class
+	 * @param delta Time since last update
+	 */
 	public void update(GameContainer container, int delta) {
 		// If platform moves vertically
 		if (vertical) {
@@ -69,10 +95,6 @@ public class Platform extends MoveableEntity {
 	
 	public boolean isVertical() {
 		return vertical;
-	}
-	
-	public void testMethod() {
-		
 	}
 	
 }

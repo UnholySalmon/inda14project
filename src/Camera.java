@@ -1,5 +1,10 @@
 import org.newdawn.slick.GameContainer;
 
+
+/**
+ * Camera objects follows the player around the map and 
+ * is also able to check if given entities are on-screen.
+ */
 public class Camera {
 	
 	// Current coordinates 
@@ -10,6 +15,13 @@ public class Camera {
 	
 	public Player player;
 	
+	/**
+	 * Create a new Camera object.
+	 * 
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param player Player object to follow
+	 */	
 	public Camera(int x, int y, Player player) {
 		this.x = (int) player.getX()-width/2;
 		this.y = (int) player.getY()-height/2;
@@ -18,6 +30,8 @@ public class Camera {
 	
 	/**
 	 *  Initializes camera dimensions to match game window's.
+	 *  
+	 *  @param container Gamecontainer to get width and height from
 	 */
 	public static void init(GameContainer container) {
 		width = container.getWidth();
@@ -71,6 +85,7 @@ public class Camera {
 	 * Checks if e is on screen
 	 * 
 	 * @param e Checked entity object
+	 * @return True if e is on screen
 	 */
 	public boolean isEntityOnScreen(Entity e) {
 		return 	(e.getX() < x + width && e.getX() + e.getWidth() > x) ||
