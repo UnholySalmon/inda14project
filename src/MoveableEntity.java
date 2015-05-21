@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class MoveableEntity extends Entity {
 	
 	private float xspeed = 0, yspeed = 0;
+	private boolean jumping = true;
 	
 	public MoveableEntity(int x, int y, String path, boolean solid) throws SlickException {
 		super(x,y,path,solid);
@@ -32,6 +33,10 @@ public class MoveableEntity extends Entity {
 		this.yspeed = yspeed;
 	}
 	
+	public Rectangle getHitbox(float xspeed, float yspeed){
+		return new Rectangle(getX()+xspeed,getY()+yspeed,getWidth(),getHeight());
+	}
+	
 	/**
 	 * Returns whether two entities are about to collide.
 	 * They move this accordingly.
@@ -41,49 +46,43 @@ public class MoveableEntity extends Entity {
 	 */
 	public boolean isColliding(Entity e) {
 		if (e == this) return false;
-		boolean collisionY = isCollidingY(e),
-			collisionX = isCollidingX(e);
-		return collisionX || collisionY;
-	}
-	
-	private boolean isCollidingX(Entity e) {
-		//hitbox.setCenterX(hitbox.getCenterX()+xspeed);
-		//if (e instanceof MoveableEntity)
-		//	e.hitbox.setCenterX(e.hitbox.getCenterX()+((MoveableEntity)e).xspeed);
-		
-		Rectangle thishitbox = getHitbox();
-		Rectangle ehitbox = e.getHitbox();
-		
-		if (thishitbox.intersects(ehitbox)) {
-			if (xspeed > 0) setX(ehitbox.getMinX()-getWidth()-1);
-			else if (xspeed < 0) setX(ehitbox.getMaxX()+1);
-			return true;
+		if (isCollidingX(e,xspeed) && isCollidingY(e,0)) {
+			//System.out.println("Horizontal collision");
+			if (xspeed > 0) {
+				setX(e.getX()-getWidth());
+				xspeed = 0;
+				return true;
+			} else if (xspeed < 0) {
+				setX(e.getX()+e.getWidth());
+				xspeed = 0;
+				return true;
+			}
+		} else if (isCollidingY(e,yspeed) && isCollidingX(e,0)) {
+			//System.out.println("Vertical collision");
+			if (yspeed > 0) {
+				setY(e.getY()-getHeight());
+				jumping = false;
+				yspeed = 0;
+				return true;
+			} else if (yspeed < 0) {
+				System.out.println("HI");
+				setY(e.getY()+e.getHeight());
+				jumping = false;
+				yspeed = 0;
+				return true;
+			}
 		}
-		
-		//hitbox.setCenterX(hitbox.getCenterX()-xspeed);
-		//if (e instanceof MoveableEntity)
-		//	e.hitbox.setCenterX(e.hitbox.getCenterX()-((MoveableEntity)e).xspeed);
 		return false;
 	}
 	
-	private boolean isCollidingY(Entity e) {
-		//hitbox.setCenterY(hitbox.getCenterY()+yspeed);
-		//if (e instanceof MoveableEntity)
-		//	e.hitbox.setCenterY(e.hitbox.getCenterY()+((MoveableEntity)e).yspeed);
-		
-		Rectangle thishitbox = getHitbox();
-		Rectangle ehitbox = e.getHitbox();
-		
-		if (thishitbox.intersects(ehitbox)) {
-			if (yspeed > 0) setY(ehitbox.getMinY()-getHeight()-1);
-			else if (yspeed < 0) setY(ehitbox.getMaxY()+1);
-			return true;
-		}
-		
-		//hitbox.setCenterY(hitbox.getCenterY()-yspeed);
-		//if (e instanceof MoveableEntity)
-		//	e.hitbox.setCenterY(e.hitbox.getCenterY()-((MoveableEntity)e).yspeed);
-		return false;
+	private boolean isCollidingX(Entity e, float xspeed) {
+		return getX() + getWidth() + xspeed > e.getX()
+			&& getX() + xspeed < e.getX() + e.getWidth();
+	}
+	
+	private boolean isCollidingY(Entity e, float yspeed) {
+		return getY() + getHeight() + yspeed > e.getY()
+			&& getY() + yspeed < e.getY() + e.getHeight();
 	}
 	
 	public ArrayList<Entity> checkCollision() {
