@@ -6,7 +6,7 @@ public class Camera {
 	private int x, y;
 	private static int width, height;
 	private final int minDistanceToEdgeY = 200;
-	private final int minDistanceToEdgeX = 400;
+	private final int minDistanceToEdgeX = 500;
 	
 	public Player player;
 	
@@ -28,6 +28,8 @@ public class Camera {
 			if (player.getX() + player.getWidth() > x + width - minDistanceToEdgeX) {
 				increaseX(player.getX() + player.getWidth() - (x + width - minDistanceToEdgeX));
 			}
+		}
+		
 		if (player.getY() < this.y + minDistanceToEdgeY) {
 			increaseY(player.getY() - (y + minDistanceToEdgeY));
 		} else { 
@@ -36,8 +38,8 @@ public class Camera {
 			}
 		}
 			
-		}
 	}
+	
 	
 	public void increaseX(float increment) {
 		x += increment;
