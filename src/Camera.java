@@ -11,8 +11,8 @@ public class Camera {
 	public Player player;
 	
 	public Camera(int x, int y, Player player) {
-		this.x = x;
-		this.y = y;
+		this.x = (int) player.getX();
+		this.y = (int) player.getY();
 		this.player = player;
 	}
 	

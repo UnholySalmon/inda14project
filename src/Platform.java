@@ -2,7 +2,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-
 public class Platform extends MoveableEntity {
 	
 	private static final int MOVEMENTSPEED = 3;

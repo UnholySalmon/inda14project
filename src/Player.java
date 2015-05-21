@@ -185,7 +185,7 @@ public class Player extends MoveableEntity {
 	 * Kills the player and restarts the map
 	 */
 	public void die() {
-		World.restart();
+		World.gameover();
 	}
 	
 }
