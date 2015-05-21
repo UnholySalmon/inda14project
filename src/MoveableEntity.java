@@ -41,8 +41,8 @@ public class MoveableEntity extends Entity {
 	 */
 	public boolean isColliding(Entity e) {
 		if (e == this) return false;
-		boolean collisionX = isCollidingX(e),
-			collisionY = isCollidingY(e);
+		boolean collisionY = isCollidingY(e),
+			collisionX = isCollidingX(e);
 		return collisionX || collisionY;
 	}
 	
@@ -75,8 +75,8 @@ public class MoveableEntity extends Entity {
 		Rectangle ehitbox = e.getHitbox();
 		
 		if (thishitbox.intersects(ehitbox)) {
-			if (yspeed > 0) setY(ehitbox.getMinY()-getHeight());
-			else if (yspeed < 0) setY(ehitbox.getMaxY());
+			if (yspeed > 0) setY(ehitbox.getMinY()-getHeight()-1);
+			else if (yspeed < 0) setY(ehitbox.getMaxY()+1);
 			return true;
 		}
 		
