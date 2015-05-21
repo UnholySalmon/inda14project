@@ -8,7 +8,8 @@ import org.newdawn.slick.SpriteSheet;
 public class Player extends MoveableEntity {
 	
 	private final float MOVEMENTSPEED = 5;
-	private final float JUMPSPEED = 1;
+	private final float JUMPSPEED = 5;
+	private final float GRAVITY = 1/30f;
 	
 	private Animation walkingAnim;
 	private Animation idleAnim;
@@ -64,13 +65,6 @@ public class Player extends MoveableEntity {
 			idleAnim.update(delta);
 		}
 		
-		// for testing purposes
-		if (input.isKeyDown(Input.KEY_UP)) {
-			this.setYSpeed(-3);
-		} else if (input.isKeyDown(Input.KEY_DOWN)) {
-			this.setYSpeed(3);
-		} else setYSpeed(0);
-		
 		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT)) {
 			goingLeft = true;
 			this.setXSpeed(-(float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
@@ -86,9 +80,14 @@ public class Player extends MoveableEntity {
 		if (this.getXSpeed() != 0 || this.getYSpeed() != 0)
 			idleCounter = 0;
 		
-		//if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
+		setJumping(true);
+		setYSpeed(getYSpeed()+GRAVITY);
 		
 		checkCollision();
+		
+		if (!isJumping())
+			if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE))
+				setYSpeed(-JUMPSPEED);
 		
 		increaseX(this.getXSpeed());
 		increaseY(this.getYSpeed());

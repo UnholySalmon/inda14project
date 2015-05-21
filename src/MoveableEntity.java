@@ -25,6 +25,14 @@ public class MoveableEntity extends Entity {
 		return yspeed;
 	}
 	
+	public boolean isJumping() {
+		return jumping;
+	}
+	
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+	
 	public void setXSpeed(float xspeed) {
 		this.xspeed = xspeed;
 	}
@@ -47,7 +55,6 @@ public class MoveableEntity extends Entity {
 	public boolean isColliding(Entity e) {
 		if (e == this) return false;
 		if (isCollidingX(e,xspeed) && isCollidingY(e,0)) {
-			//System.out.println("Horizontal collision");
 			if (xspeed > 0) {
 				setX(e.getX()-getWidth());
 				xspeed = 0;
@@ -58,16 +65,13 @@ public class MoveableEntity extends Entity {
 				return true;
 			}
 		} else if (isCollidingY(e,yspeed) && isCollidingX(e,0)) {
-			//System.out.println("Vertical collision");
 			if (yspeed > 0) {
 				setY(e.getY()-getHeight());
 				jumping = false;
 				yspeed = 0;
 				return true;
 			} else if (yspeed < 0) {
-				System.out.println("HI");
 				setY(e.getY()+e.getHeight());
-				jumping = false;
 				yspeed = 0;
 				return true;
 			}
