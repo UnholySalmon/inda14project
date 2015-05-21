@@ -2,7 +2,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 /**
  * All objects in the game world are represented by Entity.
@@ -14,12 +13,9 @@ public class Entity {
 	private int width,height;
 	private Image img;
 	private boolean solid;
-	public Shape hitbox;
-	private int xOffset, yOffset;
 	
 	/**
 	 * Create a new Entity.
-	 * Automatically sets up a rectangular hitbox lining up with img.
 	 * 
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -33,28 +29,10 @@ public class Entity {
 		width = img.getWidth();
 		height = img.getHeight();
 		this.solid = solid;
-		setHitbox(new Rectangle(x,y,img.getWidth(),img.getHeight()),0,0);
 	}
 	
 	public Entity(int x, int y, String path, boolean solid) throws SlickException {
 		this(x,y,new Image(path), solid);
-	}
-	
-	/**
-	 * Set the hitbox used for collision detection. If an entity has an hitbox,
-	 * it is collidable against other entities.
-	 * @param xOffset
-	 *            The offset of the hitbox on the x axis. Relative to the top
-	 *            left point of the entity.
-	 * @param yOffset
-	 *            The offset of the hitbox on the y axis. Relative to the top
-	 *            left point of the entity.
-	 */
-	public void setHitbox(Shape shape, int xOffset, int yOffset) {
-		hitbox = shape;
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
-		this.solid = true;
 	}
 	
 	public float getX() {
@@ -67,12 +45,10 @@ public class Entity {
 	
 	public void setX(float x) {
 		this.x = x;
-		hitbox.setX(x);
 	}
 	
 	public void setY(float y) {
 		this.y = y;
-		hitbox.setY(y);
 	}
 	
 	public int getWidth() {
@@ -85,12 +61,10 @@ public class Entity {
 	
 	public void increaseX(float increment) {
 		x += increment;
-		hitbox.setX(x);
 	}
 	
 	public void increaseY(float increment) {
 		y += increment;
-		hitbox.setY(y);
 	}
 	
 	public Image getImage() {
@@ -101,8 +75,8 @@ public class Entity {
 		return solid;
 	}
 	
-	public Shape getHitbox(){
-		return hitbox;
+	public Rectangle getHitbox(){
+		return new Rectangle(x,y,width,height);
 	}
 	
 	public void setImg(Image img) {

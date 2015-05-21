@@ -53,7 +53,6 @@ public class Player extends MoveableEntity {
 	
 	public void update(GameContainer container, int delta) {
 		handleInput(container.getInput(), delta);
-		this.hitbox.setLocation(this.getX(), this.getY());
 		
 		checkCollision();
 		
