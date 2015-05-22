@@ -34,7 +34,7 @@ public class World {
 	 */
 	public static void update(GameContainer container, int delta) {
 		// if the game's over, let the user restart by pressing R
-		if ((gameover || gamewon) && container.getInput().isKeyDown(Input.KEY_R)) {
+		if (container.getInput().isKeyDown(Input.KEY_R)) {
 			restart();
 		} 
 		if (gameover) return;
