@@ -160,7 +160,7 @@ public class Map {
 	 * @param c2 Color object to compare with
 	 * @return Do c1 and c2 share RGB values?
 	 */
-	private static boolean compareColor(Color c1, Color c2) {
+	public static boolean compareColor(Color c1, Color c2) {
 		if (c1 == null || c2 == null) return false;
 		return c1.getRed() == c2.getRed()
 			&& c1.getGreen() == c2.getGreen()
