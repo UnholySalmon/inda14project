@@ -20,7 +20,7 @@ public class Map {
 	// these determine which color corresponds to which image
 	private static Color BRICKSCOLOR, DIRTCOLOR, DIRTDEEPCOLOR, EMPTYCOLOR, FAKEBRICKSCOLOR, FINISHCOLOR, LAVACOLOR, LAVADEEPCOLOR, 
 	PLATFORMCOLOR, PLAYERCOLOR, SPIKESCOLOR;
-	private static Image BACKGROUND, BRICKSIMAGE, DIRTIMAGE, DIRTDEEPIMAGE, EMPTYIMAGE, FAKEBRICKSIMAGE, FINISHIMAGE, 
+	private static Image BACKGROUND, BRICKSIMAGE, DIRTIMAGE, DIRTDEEPIMAGE, EMPTYIMAGE, FINISHIMAGE, 
 	LAVAIMAGE, LAVADEEPIMAGE, PLATFORMIMAGE, PLAYERHITBOXIMAGE, SPIKESIMAGE;
 	
 	// here we would add more tiles to use in maps
@@ -117,7 +117,7 @@ public class Map {
 					
 				} else if (compareColor(pixel,FAKEBRICKSCOLOR)) {
 					
-					entities.add(new Tile(x,y,FAKEBRICKSIMAGE,false,false,false));
+					entities.add(new Tile(x,y,BRICKSIMAGE,false,false,false));
 					
 				} else if (compareColor(pixel,FINISHCOLOR)) {
 					
@@ -133,7 +133,7 @@ public class Map {
 					
 				} else if (compareColor(pixel,PLATFORMCOLOR)) {
 					
-					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,true,5));
+					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,false,5));
 					
 				} else if (compareColor(pixel,PLAYERCOLOR)) {
 					
