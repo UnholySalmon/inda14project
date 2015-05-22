@@ -117,7 +117,9 @@ public class Player extends MoveableEntity {
 			
 			if (e instanceof Platform) {
 				if (!((Platform)e).isVertical()) {
-					setXSpeed(((Platform)e).getXSpeed()+getXSpeed());
+					setXSpeed(((Platform)e).getXSpeed()+getXSpeed());	
+				} else {
+					setYSpeed(((Platform)e).getYSpeed()+getYSpeed()-2*GRAVITY);
 				}
 			}
 		}
