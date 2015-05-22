@@ -92,6 +92,7 @@ public class MoveableEntity extends Entity {
 	 */
 	public boolean isColliding(Entity e) {
 		if (e == this) return false;
+		if (!e.isSolid()) return false;
 		
 		// check if this and e are colliding horizontally
 		if (isCollidingX(e,xspeed) && isCollidingY(e,0)) {
