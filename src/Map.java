@@ -97,7 +97,7 @@ public class Map {
 					
 				} else if (compareColor(pixel,PLATFORMCOLOR)) {
 					
-					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,true,5));
+					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,false,5));
 					
 				} else if (compareColor(pixel,SPIKESCOLOR)) {
 					

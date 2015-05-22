@@ -15,7 +15,7 @@ import org.newdawn.slick.SpriteSheet;
 public class Player extends MoveableEntity {
 	
 	private final float MOVEMENTSPEED = 15f,
-		JUMPSPEED = 11, GRAVITY = 1/8f;
+		JUMPSPEED = 15f, GRAVITY = 1/10f;
 	
 	private Image standingImg, jumpingImg, fallingImg;
 	private Animation walkingAnim, idleAnim;
@@ -94,12 +94,12 @@ public class Player extends MoveableEntity {
 			goingLeft = true;
 			// this calculation allows for MOVEMENTSPEED
 			// to determine the player's speed in terms of tiles per second
-			setXSpeed(-(float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
+			setXSpeed(-MOVEMENTSPEED);
 			// update this animation to cycle frames
 			walkingAnim.update(delta);
 		} else if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			goingLeft = false;
-			setXSpeed((float) (MOVEMENTSPEED * Tile.SIZE * delta) / 1_000);
+			setXSpeed(MOVEMENTSPEED);
 			walkingAnim.update(delta);
 		} else {
 			setXSpeed(0);
@@ -126,12 +126,12 @@ public class Player extends MoveableEntity {
 		
 		if (!isJumping()) {
 			if (input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_SPACE)) {
-				setYSpeed(-JUMPSPEED);
+				setYSpeed(getYSpeed()-JUMPSPEED);
 			}
 		}
-		increaseX((float) (getXSpeed() * Tile.SIZE * delta) / 1_000);
-		//increaseX(getXSpeed());
-		increaseY((float) (getYSpeed() * Tile.SIZE * delta) / 1_000);
+		
+		increaseX(getXSpeed() * Tile.SIZE * delta / 1_000);
+		increaseY(getYSpeed() * Tile.SIZE * delta / 1_000);
 		
 		// the rest of the method body tracks whether
 		// to play the idle animation
