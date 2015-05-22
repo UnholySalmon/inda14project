@@ -23,7 +23,7 @@ public class MoveableEntity extends Entity {
 	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
 	public MoveableEntity(int x, int y, Image img, boolean solid, boolean deadly) {
-		super(x,y,img,solid,deadly);
+		super(x,y,img,solid,deadly, false);
 	}
 	
 	/**
@@ -123,7 +123,12 @@ public class MoveableEntity extends Entity {
 				// if we collided from underneath
 			if (yspeed < 0) {
 				setY(e.getY()+e.getHeight());
-				yspeed = 0;
+				if (e instanceof MoveableEntity) {
+				yspeed = ((MoveableEntity)e).getYSpeed();
+				System.out.println("Collision");
+				} else {
+					yspeed = 0;
+				}
 				return true;
 			}
 			

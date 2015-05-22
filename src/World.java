@@ -14,13 +14,14 @@ public class World {
 	private static Map map1;
 	// we would have to declare Map objects here to make more levels
 	
-	private static boolean paused = true, gameover;
+	private static boolean paused = true, gameover, gamewon;
 	
 	/**
 	 * Initialize all maps, and store the first map in currentMap
 	 */
 	public static void init() {
 		gameover = false;
+		gamewon = false;
 		map1 = new Map("res/map1.png");
 		currentMap = map1;
 	}
@@ -33,7 +34,7 @@ public class World {
 	 */
 	public static void update(GameContainer container, int delta) {
 		// if the game's over, let the user restart by pressing R
-		if (gameover && container.getInput().isKeyDown(Input.KEY_R)) {
+		if ((gameover || gamewon) && container.getInput().isKeyDown(Input.KEY_R)) {
 			restart();
 		} 
 		if (gameover) return;
@@ -54,7 +55,7 @@ public class World {
 	public static void render(GameContainer container, Graphics g) {
 		currentMap.render();
 		
-		if (paused || gameover) drawMenuBox(400,200,20,container,g);
+		if (paused || gameover || gamewon) drawMenuBox(400,200,20,container,g);
 		if (gameover) {
 			// draw game over text
 			String text = "Game Over\nPress R to restart";
@@ -63,6 +64,10 @@ public class World {
 		} else if (paused) {
 			// draw pause text
 			String text = "Paused\nPress P to unpause";
+			g.setColor(Color.black);
+			g.drawString(text,container.getWidth()/2-80,container.getHeight()/2-15);
+		} else if (gamewon) {
+			String text = "You won the game!\nPress R to restart";
 			g.setColor(Color.black);
 			g.drawString(text,container.getWidth()/2-80,container.getHeight()/2-15);
 		}
@@ -89,6 +94,10 @@ public class World {
 	 */
 	public static void gameover() {
 		gameover = true;
+	}
+	
+	public static void winGame() {
+		gamewon = true;
 	}
 	
 	/**

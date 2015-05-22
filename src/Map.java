@@ -19,9 +19,9 @@ public class Map {
 	
 	// these determine which color corresponds to which image
 	private static Color WALLCOLOR, PLAYERCOLOR, PLATFORMCOLOR,
-		SPIKESCOLOR;
+		SPIKESCOLOR, FINISHCOLOR;
 	private static Image EMPTYIMAGE, PLAYERHITBOXIMAGE, WALLIMAGE,
-		PLATFORMIMAGE, BACKGROUND, SPIKESIMAGE;
+		PLATFORMIMAGE, BACKGROUND, SPIKESIMAGE, FINISHIMAGE;
 	// here we would add more tiles to use in maps
 	
 	/**
@@ -54,6 +54,7 @@ public class Map {
 		WALLCOLOR = new Color(0,0,0);
 		PLATFORMCOLOR = new Color(0,255,0);
 		SPIKESCOLOR = new Color(128,128,128);
+		FINISHCOLOR = new Color(0,0,255);
 		try {
 			EMPTYIMAGE = new Image("res/empty.png");
 			PLAYERHITBOXIMAGE = new Image("res/playerhitbox.png");
@@ -61,6 +62,7 @@ public class Map {
 			PLATFORMIMAGE = new Image("res/platform.png");
 			BACKGROUND = new Image("res/background.png");
 			SPIKESIMAGE = new Image("res/spikes.png");
+			FINISHIMAGE = new Image("res/finish.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +89,7 @@ public class Map {
 				
 				if (compareColor(pixel,WALLCOLOR)) {
 					
-					entities.add(new Tile(x,y,WALLIMAGE,true,false));
+					entities.add(new Tile(x,y,WALLIMAGE,true,false,false));
 					
 				} else if (compareColor(pixel,PLAYERCOLOR)) {
 					
@@ -97,12 +99,14 @@ public class Map {
 					
 				} else if (compareColor(pixel,PLATFORMCOLOR)) {
 					
-					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,false,5));
+					entities.add(new Platform(x*Tile.SIZE,y*Tile.SIZE,PLATFORMIMAGE,true,5));
 					
 				} else if (compareColor(pixel,SPIKESCOLOR)) {
 					
-					entities.add(new Tile(x,y,SPIKESIMAGE,true,true));
+					entities.add(new Tile(x,y,SPIKESIMAGE,true,true,false));
 					
+				} else if (compareColor(pixel,FINISHCOLOR)) {
+					entities.add(new Tile(x,y,FINISHIMAGE,true,false,true));
 				}
 				
 			}

@@ -14,8 +14,8 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Player extends MoveableEntity {
 	
-	private final float MOVEMENTSPEED = 15f,
-		JUMPSPEED = 15f, GRAVITY = 1/10f;
+	private final float MOVEMENTSPEED = 7f,
+			  JUMPSPEED = 17f, GRAVITY = 1f;
 	
 	private Image standingImg, jumpingImg, fallingImg;
 	private Animation walkingAnim, idleAnim;
@@ -107,19 +107,21 @@ public class Player extends MoveableEntity {
 		
 		// these three lines implement gravity acceleration and collision checking
 		setJumping(true);
-		setYSpeed(getYSpeed()+GRAVITY);
+		setYSpeed(getYSpeed()+(GRAVITY*Tile.SIZE*delta / 1_000));
 		ArrayList<Entity> collidingEntities = checkCollision();
 		
 		for (Entity e : collidingEntities) {
 			if (e.isDeadly()) {
 				die();
+			} else if (e.isFinish()) {
+				finish();
 			}
 			
 			if (e instanceof Platform) {
-				if (!((Platform)e).isVertical()) {
-					setXSpeed(((Platform)e).getXSpeed()+getXSpeed());	
+				if (((Platform)e).isVertical()) {
+					setYSpeed(((Platform)e).getYSpeed()*GRAVITY);	
 				} else {
-					setYSpeed(((Platform)e).getYSpeed()+getYSpeed()-2*GRAVITY);
+					setXSpeed(((Platform)e).getXSpeed()+getXSpeed());
 				}
 			}
 		}
@@ -188,6 +190,10 @@ public class Player extends MoveableEntity {
 	 */
 	public void die() {
 		World.gameover();
+	}
+	
+	public void finish() {
+		World.winGame();
 	}
 	
 }

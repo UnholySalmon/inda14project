@@ -19,8 +19,8 @@ public class Tile extends Entity {
 	 * @param solid Can Entity objects pass through this object?
 	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public Tile(int row, int column, Image img, boolean solid, boolean deadly) {
-		super(row*SIZE, column*SIZE, img, solid, deadly);
+	public Tile(int row, int column, Image img, boolean solid, boolean deadly, boolean finish) {
+		super(row*SIZE, column*SIZE, img, solid, deadly, finish);
 	}
 	
 	/**
@@ -34,8 +34,8 @@ public class Tile extends Entity {
 	 * @param solid Can Entity objects pass through this object?
 	 * @param deadly Will Player instances die upon colliding with this object?
 	 */
-	public Tile(int row, int column, String path, boolean solid, boolean deadly) throws SlickException {
-		this(row*SIZE, column*SIZE, new Image(path), solid, deadly);
+	public Tile(int row, int column, String path, boolean solid, boolean deadly, boolean finish) throws SlickException {
+		this(row*SIZE, column*SIZE, new Image(path), solid, deadly, finish);
 	}
 	
 	public int getRow() {
